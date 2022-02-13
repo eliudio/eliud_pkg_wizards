@@ -1,0 +1,29 @@
+name: eliud_pkg_wizards
+description: A package with wizards for pages
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.0-116.0.dev <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  eliud_core:
+    path: ../eliud_core
+
+  eliud_pkg_text:
+    path: ../eliud_pkg_text
+
+  eliud_pkg_medium:
+    path: ../eliud_pkg_medium
+
+  eliud_pkg_fundamentals:
+    path: ../eliud_pkg_fundamentals
+
+  eliud_pkg_etc:
+    path: ../eliud_pkg_etc
+
+flutter:
+  uses-material-design: true
