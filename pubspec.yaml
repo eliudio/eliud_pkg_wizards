@@ -25,5 +25,11 @@ dependencies:
   eliud_pkg_etc:
     path: ../eliud_pkg_etc
 
+  eliud_pkg_shop:
+    path: ../eliud_pkg_shop
+
+  eliud_pkg_membership:
+    path: ../eliud_pkg_membership
+
 flutter:
   uses-material-design: true

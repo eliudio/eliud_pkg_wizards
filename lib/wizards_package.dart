@@ -4,6 +4,7 @@ import 'package:eliud_core/model/access_model.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/package/package.dart';
+import 'package:eliud_pkg_wizards/wizards/membership_workflow_wizard.dart';
 import 'package:eliud_pkg_wizards/wizards/new_policy_wizard.dart';
 import 'wizards/about_page_wizard.dart';
 import 'wizards/blocked_page_wizard.dart';
@@ -23,7 +24,8 @@ abstract class WizardsPackage extends Package {
     NewAppWizardRegistry.registry().register(BlockedPageWizard());
     NewAppWizardRegistry.registry().register(AboutPageWizard());
     NewAppWizardRegistry.registry().register(NewPolicyWizard());
-  }
+    NewAppWizardRegistry.registry().register(MembershipWorkflowWizard());
+ }
 
   @override
   List<MemberCollectionInfo>? getMemberCollectionInfo() => null;
