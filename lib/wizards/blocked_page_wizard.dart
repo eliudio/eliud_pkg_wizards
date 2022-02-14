@@ -12,7 +12,7 @@ import 'builders/page/blocked_page_builder.dart';
 class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
   static String BLOCKED_PAGE_ID = 'blocked';
   static String BLOCKED_ASSET_PATH =
-      'packages/eliud_pkg_create/assets/blocked.png';
+      'packages/eliud_pkg_wizards/assets/blocked.png';
   static String BLOCKED_COMPONENT_IDENTIFIER = "blocked";
 
   static bool hasAccessToLocalFileSystem = AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();

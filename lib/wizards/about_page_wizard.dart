@@ -13,7 +13,7 @@ import 'builders/page/about_page_builder.dart';
 class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
   static String ABOUT_PAGE_ID = 'about';
   static String ABOUT_COMPONENT_IDENTIFIER = "about";
-  static String ABOUT_ASSET_PATH = 'packages/eliud_pkg_create/assets/about.png';
+  static String ABOUT_ASSET_PATH = 'packages/eliud_pkg_wizards/assets/about.png';
 
   static bool hasAccessToLocalFileSystem = AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
 

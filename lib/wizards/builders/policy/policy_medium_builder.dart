@@ -16,7 +16,7 @@ class PolicyMediumBuilder {
 
 // Policy
   String policiesAssetLocation() =>
-      'packages/eliud_pkg_create/assets/new_app/legal/policies.pdf';
+      'packages/eliud_pkg_wizards/assets/new_app/legal/policies.pdf';
 
   Future<PublicMediumModel> create() async {
     var policyID = 'policy_id';
