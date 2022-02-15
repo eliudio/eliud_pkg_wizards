@@ -35,6 +35,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - packages/eliud_pkg_create/assets/about.png
-    - packages/eliud_pkg_create/assets/new_app/legal/policies.pdf
-    - packages/eliud_pkg_create/assets/blocked.png
+    - packages/eliud_pkg_wizards/assets/about.png
+    - packages/eliud_pkg_wizards/assets/new_app/legal/policies.pdf
+    - packages/eliud_pkg_wizards/assets/blocked.png
