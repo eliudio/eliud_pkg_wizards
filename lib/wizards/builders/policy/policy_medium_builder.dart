@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
@@ -8,11 +10,11 @@ import 'package:eliud_core/tools/storage/public_medium_helper.dart';
 import 'package:eliud_core/tools/storage/upload_info.dart';
 
 class PolicyMediumBuilder {
-  final FeedbackProgress feedbackProgress;
+//  final FeedbackProgress feedbackProgress;
   final AppModel app;
   final String memberId;
 
-  PolicyMediumBuilder(this.feedbackProgress, this.app, this.memberId);
+  PolicyMediumBuilder(/*this.feedbackProgress, */this.app, this.memberId);
 
 // Policy
   String policiesAssetLocation() =>
@@ -21,7 +23,7 @@ class PolicyMediumBuilder {
   Future<PublicMediumModel> create() async {
     var policyID = 'policy_id';
     var policy = await _uploadPublicPdf(
-        app, memberId, policiesAssetLocation(), policyID, feedbackProgress);
+        app, memberId, policiesAssetLocation(), policyID, /*feedbackProgress*/);
     return policy;
   }
 
@@ -30,11 +32,16 @@ class PolicyMediumBuilder {
       String memberId,
       String assetPath,
       String documentID,
-      FeedbackProgress? feedbackProgress) async {
+      /*FeedbackProgress? feedbackProgress*/) async {
     String memberMediumDocumentID = newRandomKey();
-    return await PublicMediumHelper(app, memberId,)
+
+    var completer = new Completer<PublicMediumModel>();
+    await PublicMediumHelper(app, memberId,)
         .createThumbnailUploadPdfAsset(
         memberMediumDocumentID, assetPath, documentID,
-        feedbackProgress: feedbackProgress);
+        feedbackProgress: (feedback) {}, feedbackFunction: (value) {
+      completer.complete(value);
+    });
+    return await completer.future;
   }
 }

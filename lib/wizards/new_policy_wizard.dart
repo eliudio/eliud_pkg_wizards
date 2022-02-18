@@ -18,6 +18,8 @@ import 'builders/policy/policy_page_builder.dart';
 
 class NewPolicyWizard extends NewAppWizardInfo {
   static String POLICY_PAGE_ID = 'policy';
+  PublicMediumModel? policyMedium;
+  AppPolicyModel? policyModel;
 
   NewPolicyWizard() : super('policy', 'App policy');
 
@@ -80,38 +82,47 @@ class NewPolicyWizard extends NewAppWizardInfo {
       var appId = app.documentID!;
       if (policySpecifications.shouldCreatePageDialogOrWorkflow()) {
         List<NewAppTask> tasks = [];
-        late PublicMediumModel policyMedium;
-        late AppPolicyModel policyModel;
         var memberId = member.documentID!;
 
         // policy medium
         tasks.add(() async {
           print("Policy Medium");
           policyMedium =
-              await PolicyMediumBuilder((value) => {}, app, memberId).create();
+              await PolicyMediumBuilder(app, memberId).create();
+          if (policyMedium != null) {
+            policyModel =
+            await AppPolicyBuilder(appId, memberId, policyMedium!).create();
+            parameters.registerTheAppPolicy(policyModel!);
+          }
         });
 
         // policy
+/*
         tasks.add(() async {
-          policyModel =
-              await AppPolicyBuilder(appId, memberId, policyMedium).create();
-          parameters.registerTheAppPolicy(policyModel);
+          if (policyMedium != null) {
+            policyModel =
+            await AppPolicyBuilder(appId, memberId, policyMedium!).create();
+            parameters.registerTheAppPolicy(policyModel!);
+          }
         });
+*/
 
         // policy page
         tasks.add(() async {
-          print("Policy Page");
-          await PolicyPageBuilder(
-                  POLICY_PAGE_ID,
-                  app,
-                  memberId,
-                  homeMenuProvider(),
-                  appBarProvider(),
-                  leftDrawerProvider(),
-                  rightDrawerProvider(),
-                  policyMedium,
-                  'Policy')
-              .create();
+          if (policyMedium != null) {
+            print("Policy Page");
+            await PolicyPageBuilder(
+                POLICY_PAGE_ID,
+                app,
+                memberId,
+                homeMenuProvider(),
+                appBarProvider(),
+                leftDrawerProvider(),
+                rightDrawerProvider(),
+                policyMedium!,
+                'Policy')
+                .create();
+          }
         });
         return tasks;
       }
@@ -143,7 +154,7 @@ class NewPolicyParameters extends ActionSpecificationParametersBase {
   static bool hasAccessToLocalFileSystem =
       AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
 
-  late AppPolicyModel? appPolicyModel;
+  AppPolicyModel? appPolicyModel;
 
   NewPolicyParameters()
       : super(
