@@ -1,8 +1,12 @@
 import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core/model/display_conditions_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
+import 'package:eliud_pkg_etc/tools/bespoke_models.dart';
+import 'package:eliud_pkg_shop/shop_package.dart';
+import 'package:eliud_pkg_shop/tools/bespoke_models.dart';
 import 'package:flutter/material.dart';
 
 import 'builders/widgets/payment_parameters_widget.dart';
@@ -64,6 +68,18 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
 
   @override
   String? getPageID(String pageType) => null;
+
+  @override
+  ActionModel? getAction(AppModel app, String actionType) => null;
+/*
+
+  WorkflowActionModel payCart(AppModel app) => WorkflowActionModel(app,
+      conditions: DisplayConditionsModel(
+        privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
+        packageCondition: ShopPackage.CONDITION_CARTS_HAS_ITEMS,
+      ),
+      workflow: _workflowForCreditCardPaymentCart());
+*/
 
   @override
   List<MenuItemModel>? getMenuItemsFor(

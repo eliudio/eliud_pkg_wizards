@@ -14,6 +14,13 @@ import 'package:eliud_pkg_workflow/model/workflow_notification_model.dart';
 import 'package:eliud_pkg_workflow/model/workflow_task_model.dart';
 import 'package:eliud_pkg_workflow/tools/action/workflow_action_model.dart';
 
+class CartPaymentWorkflows {
+  WorkflowModel? workflowForManualPaymentCart;
+  WorkflowModel? workflowForCreditCardPaymentCart;
+
+  CartPaymentWorkflows(this.workflowForManualPaymentCart, this.workflowForCreditCardPaymentCart);
+}
+
 class PaymentWorkflowBuilder {
   final String appId;
   final PaymentParameters parameters;
@@ -21,15 +28,20 @@ class PaymentWorkflowBuilder {
   PaymentWorkflowBuilder(this.appId,
       {required this.parameters});
 
-  Future<void> create() async {
+  Future<CartPaymentWorkflows> create() async {
+    var workflowForManualPaymentCart;
+    var workflowForCreditCardPaymentCart;
     if (parameters.manualPaymentCart) {
+      workflowForManualPaymentCart = _workflowForManualPaymentCart();
       await workflowRepository(appId: appId)!
-          .add(_workflowForManualPaymentCart());
+          .add(workflowForManualPaymentCart);
     }
     if (parameters.creditCardPaymentCart) {
+      workflowForCreditCardPaymentCart = workflowForCreditCardPaymentCart();
       await workflowRepository(appId: appId)!
-          .add(_workflowForCreditCardPaymentCart());
+          .add(workflowForCreditCardPaymentCart());
     }
+    return CartPaymentWorkflows(workflowForManualPaymentCart, workflowForCreditCardPaymentCart);
   }
 
   WorkflowModel _workflowForManualPaymentCart() {
@@ -41,16 +53,12 @@ class PaymentWorkflowBuilder {
         bankName: parameters.bankName);
   }
 
-  WorkflowModel _workflowForCreditCardPaymentCart() {
-    return workflowForCreditCardPaymentCart();
-  }
-
   WorkflowActionModel payCart(AppModel app) => WorkflowActionModel(app,
       conditions: DisplayConditionsModel(
         privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
         packageCondition: ShopPackage.CONDITION_CARTS_HAS_ITEMS,
       ),
-      workflow: _workflowForCreditCardPaymentCart());
+      workflow: workflowForCreditCardPaymentCart());
 
   // helper methods
   WorkflowModel workflowForManualPaymentCart(

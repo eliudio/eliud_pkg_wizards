@@ -81,4 +81,8 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
 
   @override
   String? getPageID(String pageType) => null;
+
+  @override
+  ActionModel? getAction(AppModel app, String actionType) => null;
+
 }

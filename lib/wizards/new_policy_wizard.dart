@@ -148,6 +148,9 @@ class NewPolicyWizard extends NewAppWizardInfo {
 
   @override
   String? getPageID(String pageType) => null;
+
+  @override
+  ActionModel? getAction(AppModel app, String actionType) => null;
 }
 
 class NewPolicyParameters extends ActionSpecificationParametersBase {
