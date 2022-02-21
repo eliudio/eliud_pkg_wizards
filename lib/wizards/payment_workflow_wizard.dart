@@ -70,7 +70,7 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
   String? getPageID(String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType) => null;
+  ActionModel? getAction(AppModel app, String actionType, ) => null;
 /*
 
   WorkflowActionModel payCart(AppModel app) => WorkflowActionModel(app,

@@ -81,6 +81,6 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
   }
 
   @override
-  ActionModel? getAction(AppModel app, String actionType) => null;
+  ActionModel? getAction(AppModel app, String actionType, ) => null;
 
 }

@@ -76,7 +76,7 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
   String? getPageID(String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType) => null;
+  ActionModel? getAction(AppModel app, String actionType, ) => null;
 
   @override
   List<MenuItemModel>? getMenuItemsFor(
