@@ -49,6 +49,8 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
       AppBarProvider appBarProvider,
       DrawerProvider leftDrawerProvider,
       DrawerProvider rightDrawerProvider,
+      PageProvider pageProvider,
+      ActionProvider actionProvider,
       ) {
     if (parameters is ActionSpecificationParametersBase) {
       var aboutPageSpecifications = parameters.actionSpecifications;
@@ -66,7 +68,7 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
               homeMenuProvider(),
               appBarProvider(),
               leftDrawerProvider(),
-              rightDrawerProvider())
+              rightDrawerProvider(), pageProvider, actionProvider)
               .create();
         });
         return tasks;
@@ -80,9 +82,9 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
   AppModel updateApp(NewAppWizardParameters parameters, AppModel adjustMe, ) => adjustMe;
 
   @override
-  String? getPageID(String pageType) => null;
+  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType, ) => null;
+  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) => null;
 
 }

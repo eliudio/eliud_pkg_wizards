@@ -39,6 +39,8 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
     AppBarProvider appBarProvider,
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
+    PageProvider pageProvider,
+    ActionProvider actionProvider,
   ) {
     if (parameters is PaymentParameters) {
       if ((parameters.creditCardPaymentCart) ||
@@ -46,10 +48,11 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
         List<NewAppTask> tasks = [];
         tasks.add(() async {
           print("Payment workflow");
-          await PaymentWorkflowBuilder(
+          var cartPaymentWorkflows = await PaymentWorkflowBuilder(
             app.documentID!,
             parameters: parameters,
           ).create();
+          parameters.registerCartPaymentWorkflows(cartPaymentWorkflows);
         });
         return tasks;
       }
@@ -67,19 +70,32 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
       adjustMe;
 
   @override
-  String? getPageID(String pageType) => null;
+  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType, ) => null;
-/*
-
-  WorkflowActionModel payCart(AppModel app) => WorkflowActionModel(app,
-      conditions: DisplayConditionsModel(
-        privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
-        packageCondition: ShopPackage.CONDITION_CARTS_HAS_ITEMS,
-      ),
-      workflow: _workflowForCreditCardPaymentCart());
-*/
+  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) {
+    if (parameters is PaymentParameters) {
+      // TODO: we could consider to ask for the choice card or manual through the wizard UID
+      var cartPaymentWorkflows;
+      if (parameters.cartPaymentWorkflows != null) {
+        var cartPaymentWorkflows = parameters.cartPaymentWorkflows!
+            .workflowForCreditCardPaymentCart;
+        if (cartPaymentWorkflows == null) {
+          cartPaymentWorkflows =
+              parameters.cartPaymentWorkflows!.workflowForManualPaymentCart;
+        }
+      }
+      return WorkflowActionModel(app,
+          conditions: DisplayConditionsModel(
+            privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
+            packageCondition: ShopPackage.CONDITION_CARTS_HAS_ITEMS,
+          ),
+          workflow: cartPaymentWorkflows);
+    } else {
+      throw Exception(
+          'Unexpected class for parameters: ' + parameters.toString());
+    }
+  }
 
   @override
   List<MenuItemModel>? getMenuItemsFor(
@@ -110,6 +126,8 @@ class PaymentParameters extends NewAppWizardParameters {
   String payeeIBAN;
   String bankName;
 
+  CartPaymentWorkflows? cartPaymentWorkflows;
+
   PaymentParameters({
     required this.manualPaymentCart,
     required this.creditCardPaymentCart,
@@ -119,4 +137,9 @@ class PaymentParameters extends NewAppWizardParameters {
     required this.payeeIBAN,
     required this.bankName,
   }) {}
+
+  void registerCartPaymentWorkflows(CartPaymentWorkflows theCartPaymentWorkflows) {
+    cartPaymentWorkflows = theCartPaymentWorkflows;
+  }
+
 }

@@ -43,6 +43,8 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
       AppBarProvider appBarProvider,
       DrawerProvider leftDrawerProvider,
       DrawerProvider rightDrawerProvider,
+      PageProvider pageProvider,
+      ActionProvider actionProvider,
       ) {
     if (parameters is ActionSpecificationParametersBase) {
       var blockedPageSpecifications = parameters.actionSpecifications;
@@ -61,7 +63,9 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
               homeMenuProvider(),
               appBarProvider(),
               leftDrawerProvider(),
-              rightDrawerProvider())
+              rightDrawerProvider(),
+            pageProvider, actionProvider
+          )
               .create();
         });
         return tasks;
@@ -75,12 +79,12 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
   AppModel updateApp(NewAppWizardParameters parameters, AppModel adjustMe, ) => adjustMe;
 
   @override
-  String? getPageID(String pageType) {
+  String? getPageID(NewAppWizardParameters parameters, String pageType) {
     if (pageType == 'blockedPageId') return BLOCKED_PAGE_ID;
     return null;
   }
 
   @override
-  ActionModel? getAction(AppModel app, String actionType, ) => null;
+  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) => null;
 
 }

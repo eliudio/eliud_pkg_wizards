@@ -1,4 +1,5 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
+import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
@@ -29,9 +30,12 @@ class BlockedPageBuilder extends PageBuilder {
       HomeMenuModel theHomeMenu,
       AppBarModel theAppBar,
       DrawerModel leftDrawer,
-      DrawerModel rightDrawer)
+      DrawerModel rightDrawer,
+      PageProvider pageProvider,
+      ActionProvider actionProvider
+      )
       : super(pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
-            rightDrawer);
+            rightDrawer, pageProvider, actionProvider);
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
@@ -118,7 +122,7 @@ class BlockedPageBuilder extends PageBuilder {
           theHomeMenu,
           theAppBar,
           leftDrawer,
-          rightDrawer)
+          rightDrawer, pageProvider, actionProvider)
           .create();
     }
   }

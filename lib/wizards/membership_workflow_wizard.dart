@@ -44,6 +44,8 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
     AppBarProvider appBarProvider,
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
+    PageProvider pageProvider,
+    ActionProvider actionProvider,
   ) {
     if (parameters is MembershipParameters) {
       if ((parameters.membershipPaidByCard) ||
@@ -73,10 +75,10 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
       adjustMe;
 
   @override
-  String? getPageID(String pageType) => null;
+  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType, ) => null;
+  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) => null;
 
   @override
   List<MenuItemModel>? getMenuItemsFor(

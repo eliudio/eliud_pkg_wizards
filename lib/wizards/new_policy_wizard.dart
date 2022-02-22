@@ -32,16 +32,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
   List<MenuItemModel>? getMenuItemsFor(
       AppModel app, NewAppWizardParameters parameters, MenuType type) {
     if (parameters is NewPolicyParameters) {
-      var examplePolicySpecifications = parameters.actionSpecifications;
-      bool generate = (type == MenuType.leftDrawerMenu) &&
-              examplePolicySpecifications.availableInLeftDrawer ||
-          (type == MenuType.rightDrawerMenu) &&
-              examplePolicySpecifications.availableInRightDrawer ||
-          (type == MenuType.bottomNavBarMenu) &&
-              examplePolicySpecifications.availableInHomeMenu ||
-          (type == MenuType.appBarMenu) &&
-              examplePolicySpecifications.availableInAppBar;
-      if (generate) {
+      if (parameters.actionSpecifications.should(type)) {
         return [menuItem(app, POLICY_PAGE_ID, 'Policy', Icons.rule)];
       }
     } else {
@@ -76,6 +67,8 @@ class NewPolicyWizard extends NewAppWizardInfo {
     AppBarProvider appBarProvider,
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
+    PageProvider pageProvider,
+    ActionProvider actionProvider,
   ) {
     if (parameters is NewPolicyParameters) {
       var policySpecifications = parameters.actionSpecifications;
@@ -87,11 +80,10 @@ class NewPolicyWizard extends NewAppWizardInfo {
         // policy medium
         tasks.add(() async {
           print("Policy Medium");
-          policyMedium =
-              await PolicyMediumBuilder(app, memberId).create();
+          policyMedium = await PolicyMediumBuilder(app, memberId).create();
           if (policyMedium != null) {
             policyModel =
-            await AppPolicyBuilder(appId, memberId, policyMedium!).create();
+                await AppPolicyBuilder(appId, memberId, policyMedium!).create();
             parameters.registerTheAppPolicy(policyModel!);
           }
         });
@@ -112,15 +104,17 @@ class NewPolicyWizard extends NewAppWizardInfo {
           if (policyMedium != null) {
             print("Policy Page");
             await PolicyPageBuilder(
-                POLICY_PAGE_ID,
-                app,
-                memberId,
-                homeMenuProvider(),
-                appBarProvider(),
-                leftDrawerProvider(),
-                rightDrawerProvider(),
-                policyMedium!,
-                'Policy')
+                    POLICY_PAGE_ID,
+                    app,
+                    memberId,
+                    homeMenuProvider(),
+                    appBarProvider(),
+                    leftDrawerProvider(),
+                    rightDrawerProvider(),
+                    pageProvider,
+                    actionProvider,
+                    policyMedium!,
+                    'Policy')
                 .create();
           }
         });
@@ -147,10 +141,15 @@ class NewPolicyWizard extends NewAppWizardInfo {
   }
 
   @override
-  String? getPageID(String pageType) => null;
+  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(AppModel app, String actionType, ) => null;
+  ActionModel? getAction(
+    NewAppWizardParameters parameters,
+    AppModel app,
+    String actionType,
+  ) =>
+      null;
 }
 
 class NewPolicyParameters extends ActionSpecificationParametersBase {
