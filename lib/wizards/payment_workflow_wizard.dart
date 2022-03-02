@@ -3,8 +3,8 @@ import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/display_conditions_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
+import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
-import 'package:eliud_pkg_etc/tools/bespoke_models.dart';
 import 'package:eliud_pkg_shop/shop_package.dart';
 import 'package:eliud_pkg_shop/tools/bespoke_models.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +32,7 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
 
   @override
   List<NewAppTask>? getCreateTasks(
+    String uniqueId,
     AppModel app,
     NewAppWizardParameters parameters,
     MemberModel member,
@@ -48,7 +49,7 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
         List<NewAppTask> tasks = [];
         tasks.add(() async {
           print("Payment workflow");
-          var cartPaymentWorkflows = await PaymentWorkflowBuilder(
+          var cartPaymentWorkflows = await PaymentWorkflowBuilder(uniqueId,
             app.documentID!,
             parameters: parameters,
           ).create();
@@ -64,16 +65,17 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
 
   @override
   AppModel updateApp(
+    String uniqueId,
     NewAppWizardParameters parameters,
     AppModel adjustMe,
   ) =>
       adjustMe;
 
   @override
-  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
+  String? getPageID(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) {
+  ActionModel? getAction(String uniqueId, NewAppWizardParameters parameters, AppModel app, String actionType, ) {
     if (parameters is PaymentParameters) {
       // TODO: we could consider to ask for the choice card or manual through the wizard UID
       var cartPaymentWorkflows;
@@ -98,8 +100,8 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
   }
 
   @override
-  List<MenuItemModel>? getMenuItemsFor(
-          AppModel app, NewAppWizardParameters parameters, MenuType type) =>
+  List<MenuItemModel>? getMenuItemsFor(String uniqueId,
+      AppModel app, NewAppWizardParameters parameters, MenuType type) =>
       null;
 
   @override
@@ -115,6 +117,9 @@ class PaymentWorkflowWizard extends NewAppWizardInfo {
           'Unexpected class for parameters: ' + parameters.toString());
     }
   }
+
+  @override
+  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 }
 
 class PaymentParameters extends NewAppWizardParameters {

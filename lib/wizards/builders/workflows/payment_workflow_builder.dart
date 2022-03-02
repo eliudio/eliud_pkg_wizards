@@ -1,3 +1,4 @@
+import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/display_conditions_model.dart';
 import 'package:eliud_core/tools/random.dart';
@@ -22,10 +23,11 @@ class CartPaymentWorkflows {
 }
 
 class PaymentWorkflowBuilder {
+  final String uniqueId;
   final String appId;
   final PaymentParameters parameters;
 
-  PaymentWorkflowBuilder(this.appId,
+  PaymentWorkflowBuilder(this.uniqueId, this.appId,
       {required this.parameters});
 
   Future<CartPaymentWorkflows> create() async {
@@ -87,7 +89,7 @@ class PaymentWorkflowBuilder {
       String documentID, String name, PayTypeModel payTypeModel) {
     return WorkflowModel(
         appId: appId,
-        documentID: "cart_paid_manually",
+        documentID: constructDocumentId(uniqueId: uniqueId, documentId: "cart_paid_manually"),
         name: "Manual Cart Payment",
         workflowTask: [
           WorkflowTaskModel(

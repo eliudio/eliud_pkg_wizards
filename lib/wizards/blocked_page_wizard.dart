@@ -3,6 +3,7 @@ import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
+import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
 import 'package:eliud_pkg_medium/platform/medium_platform.dart';
@@ -11,41 +12,45 @@ import 'package:flutter/material.dart';
 import 'builders/page/blocked_page_builder.dart';
 
 class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
-  static String BLOCKED_PAGE_ID = 'blocked';
-  static String BLOCKED_ASSET_PATH =
+  static String blockedPageId = 'blocked';
+  static String blockedAssetPath =
       'packages/eliud_pkg_wizards/assets/blocked.png';
-  static String BLOCKED_COMPONENT_IDENTIFIER = "blocked";
+  static String blockedComponentId = "blocked";
 
-  static bool hasAccessToLocalFileSystem = AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
+  static bool hasAccessToLocalFileSystem =
+      AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
 
-  BlockedPageWizard() : super('blocked', 'Blocked',  'Generate Blocked Page');
-
-  @override
-  NewAppWizardParameters newAppWizardParameters() => ActionSpecificationParametersBase(
-    requiresAccessToLocalFileSystem: false,
-    availableInLeftDrawer: false,
-    availableInRightDrawer: false,
-    availableInAppBar: false,
-    availableInHomeMenu: false,
-    available: true,
-  );
+  BlockedPageWizard()
+      : super('blocked', 'Blocked', 'Generate a default Blocked Page');
 
   @override
-  List<MenuItemModel>? getThoseMenuItems(AppModel app) =>[
-      menuItem(app, BLOCKED_PAGE_ID, 'Blocked', Icons.do_not_disturb)];
+  NewAppWizardParameters newAppWizardParameters() =>
+      ActionSpecificationParametersBase(
+        requiresAccessToLocalFileSystem: false,
+        availableInLeftDrawer: false,
+        availableInRightDrawer: false,
+        availableInAppBar: false,
+        availableInHomeMenu: false,
+        available: true,
+      );
+
+  @override
+  List<MenuItemModel>? getThoseMenuItems(String uniqueId, AppModel app) =>
+      [menuItem(uniqueId, app, blockedPageId, 'Blocked', Icons.do_not_disturb)];
 
   @override
   List<NewAppTask>? getCreateTasks(
-      AppModel app,
-      NewAppWizardParameters parameters,
-      MemberModel member,
-      HomeMenuProvider homeMenuProvider,
-      AppBarProvider appBarProvider,
-      DrawerProvider leftDrawerProvider,
-      DrawerProvider rightDrawerProvider,
-      PageProvider pageProvider,
-      ActionProvider actionProvider,
-      ) {
+    String uniqueId,
+    AppModel app,
+    NewAppWizardParameters parameters,
+    MemberModel member,
+    HomeMenuProvider homeMenuProvider,
+    AppBarProvider appBarProvider,
+    DrawerProvider leftDrawerProvider,
+    DrawerProvider rightDrawerProvider,
+    PageProvider pageProvider,
+    ActionProvider actionProvider,
+  ) {
     if (parameters is ActionSpecificationParametersBase) {
       var blockedPageSpecifications = parameters.actionSpecifications;
 
@@ -54,37 +59,53 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
         var memberId = member.documentID!;
         tasks.add(() async {
           print("Blocked Page");
-          var blockedPage = await BlockedPageBuilder(
-              BLOCKED_COMPONENT_IDENTIFIER,
-              hasAccessToLocalFileSystem ? BLOCKED_ASSET_PATH : null,
-              BLOCKED_PAGE_ID,
-              app,
-              memberId,
-              homeMenuProvider(),
-              appBarProvider(),
-              leftDrawerProvider(),
-              rightDrawerProvider(),
-            pageProvider, actionProvider
-          )
+          await BlockedPageBuilder(
+                  uniqueId,
+                  blockedComponentId,
+                  hasAccessToLocalFileSystem ? blockedAssetPath : null,
+                  blockedPageId,
+                  app,
+                  memberId,
+                  homeMenuProvider(),
+                  appBarProvider(),
+                  leftDrawerProvider(),
+                  rightDrawerProvider(),
+                  pageProvider,
+                  actionProvider)
               .create();
         });
         return tasks;
       }
     } else {
-      throw Exception('Unexpected class for parameters: ' + parameters.toString());
+      throw Exception(
+          'Unexpected class for parameters: ' + parameters.toString());
     }
   }
 
   @override
-  AppModel updateApp(NewAppWizardParameters parameters, AppModel adjustMe, ) => adjustMe;
+  AppModel updateApp(
+    String uniqueId,
+    NewAppWizardParameters parameters,
+    AppModel adjustMe,
+  ) =>
+      adjustMe;
 
   @override
-  String? getPageID(NewAppWizardParameters parameters, String pageType) {
-    if (pageType == 'blockedPageId') return BLOCKED_PAGE_ID;
+  String? getPageID(
+      String uniqueId, NewAppWizardParameters parameters, String pageType) {
+    if (pageType == 'blockedPageId') return blockedPageId;
     return null;
   }
 
   @override
-  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) => null;
+  ActionModel? getAction(
+    String uniqueId,
+    NewAppWizardParameters parameters,
+    AppModel app,
+    String actionType,
+  ) =>
+      null;
 
+  @override
+  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 }

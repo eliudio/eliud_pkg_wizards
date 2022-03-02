@@ -1,5 +1,6 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
+import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
@@ -22,6 +23,7 @@ class BlockedPageBuilder extends PageBuilder {
   final String componentId;
 
   BlockedPageBuilder(
+      String uniqueId,
       this.componentId,
       this.blockedAssetLocation,
       String pageId,
@@ -34,7 +36,7 @@ class BlockedPageBuilder extends PageBuilder {
       PageProvider pageProvider,
       ActionProvider actionProvider
       )
-      : super(pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
+      : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
             rightDrawer, pageProvider, actionProvider);
 
   Future<PageModel> _setupPage() async {
@@ -48,10 +50,10 @@ class BlockedPageBuilder extends PageBuilder {
     components.add(BodyComponentModel(
         documentID: "1",
         componentName: AbstractBookletComponent.componentName,
-        componentId: blockedIdentifier));
+        componentId: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier)));
 
     return PageModel(
-        documentID: pageId,
+        documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID!,
         title: "Blocked !",
         drawer: leftDrawer,
@@ -91,7 +93,7 @@ class BlockedPageBuilder extends PageBuilder {
     }
 
     return BookletModel(
-      documentID: blockedIdentifier,
+      documentID: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier),
       name: "Blocked!",
       sections: entries,
       appId: app.documentID!,
@@ -113,7 +115,7 @@ class BlockedPageBuilder extends PageBuilder {
       await _setupBlocked(blockedImage);
       return await _setupPage();
     } else {
-      return PageWithTextBuilder(
+      return PageWithTextBuilder(uniqueId,
           'Blocked',
           'You are blocked',
           pageId,

@@ -2,7 +2,6 @@ import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/core/wizards/widgets/action_specification_widget.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/app_policy_model.dart';
-import 'package:eliud_core/model/icon_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
@@ -11,13 +10,12 @@ import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
 import 'package:eliud_pkg_medium/platform/medium_platform.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'builders/policy/app_policy_builder.dart';
 import 'builders/policy/policy_medium_builder.dart';
 import 'builders/policy/policy_page_builder.dart';
 
 class NewPolicyWizard extends NewAppWizardInfo {
-  static String POLICY_PAGE_ID = 'policy';
+  static String policyPageId = 'policy';
   PublicMediumModel? policyMedium;
   AppPolicyModel? policyModel;
 
@@ -29,11 +27,11 @@ class NewPolicyWizard extends NewAppWizardInfo {
   }
 
   @override
-  List<MenuItemModel>? getMenuItemsFor(
+  List<MenuItemModel>? getMenuItemsFor(String uniqueId,
       AppModel app, NewAppWizardParameters parameters, MenuType type) {
     if (parameters is NewPolicyParameters) {
       if (parameters.actionSpecifications.should(type)) {
-        return [menuItem(app, POLICY_PAGE_ID, 'Policy', Icons.rule)];
+        return [menuItem(uniqueId, app, policyPageId, 'Policy', Icons.rule)];
       }
     } else {
       throw Exception(
@@ -52,15 +50,15 @@ class NewPolicyWizard extends NewAppWizardInfo {
           app: app,
           enabled: hasAccessToLocalFileSystem,
           actionSpecification: parameters.actionSpecifications,
-          label: 'Generate Example Policy');
+          label: 'Generate a default Example Policy');
     } else {
       return text(app, context,
           'Unexpected class for parameters: ' + parameters.toString());
     }
   }
 
-  List<NewAppTask>? getCreateTasks(
-    AppModel app,
+  List<NewAppTask>? getCreateTasks(String uniqueId,
+      AppModel app,
     NewAppWizardParameters parameters,
     MemberModel member,
     HomeMenuProvider homeMenuProvider,
@@ -80,10 +78,10 @@ class NewPolicyWizard extends NewAppWizardInfo {
         // policy medium
         tasks.add(() async {
           print("Policy Medium");
-          policyMedium = await PolicyMediumBuilder(app, memberId).create();
+          policyMedium = await PolicyMediumBuilder(uniqueId, app, memberId).create();
           if (policyMedium != null) {
             policyModel =
-                await AppPolicyBuilder(appId, memberId, policyMedium!).create();
+                await AppPolicyBuilder(uniqueId, appId, memberId, policyMedium!).create();
             parameters.registerTheAppPolicy(policyModel!);
           }
         });
@@ -103,8 +101,8 @@ class NewPolicyWizard extends NewAppWizardInfo {
         tasks.add(() async {
           if (policyMedium != null) {
             print("Policy Page");
-            await PolicyPageBuilder(
-                    POLICY_PAGE_ID,
+            await PolicyPageBuilder(uniqueId,
+                    policyPageId,
                     app,
                     memberId,
                     homeMenuProvider(),
@@ -127,8 +125,8 @@ class NewPolicyWizard extends NewAppWizardInfo {
   }
 
   @override
-  AppModel updateApp(
-    NewAppWizardParameters parameters,
+  AppModel updateApp(String uniqueId,
+      NewAppWizardParameters parameters,
     AppModel adjustMe,
   ) {
     if (parameters is NewPolicyParameters) {
@@ -141,15 +139,18 @@ class NewPolicyWizard extends NewAppWizardInfo {
   }
 
   @override
-  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
+  String? getPageID(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 
   @override
-  ActionModel? getAction(
-    NewAppWizardParameters parameters,
+  ActionModel? getAction(String uniqueId,
+      NewAppWizardParameters parameters,
     AppModel app,
     String actionType,
   ) =>
       null;
+
+  @override
+  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 }
 
 class NewPolicyParameters extends ActionSpecificationParametersBase {

@@ -41,7 +41,7 @@ class _PaymentParametersWidgetState
   @override
   Widget build(BuildContext context) {
     return topicContainer(widget.app, context,
-        title: 'Generate Payment Workflow',
+        title: 'Generate a default Payment Workflow',
         collapsible: true,
         collapsed: true,
         children: [

@@ -1,3 +1,4 @@
+import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/display_conditions_model.dart';
 import 'package:eliud_core/tools/random.dart';
@@ -17,10 +18,12 @@ import 'package:eliud_pkg_workflow/tools/action/workflow_action_model.dart';
 import '../../membership_workflow_wizard.dart';
 
 class MembershipWorkflowBuilder {
+  final String uniqueId;
   final String appId;
   final MembershipParameters parameters;
 
-  MembershipWorkflowBuilder(this.appId,
+  MembershipWorkflowBuilder(this.uniqueId,
+      this.appId,
       {required this.parameters,
       });
 
@@ -95,7 +98,7 @@ class MembershipWorkflowBuilder {
       double amount, String ccy, PayTypeModel payTypeModel) {
     return WorkflowModel(
         appId: appId,
-        documentID: documentID,
+        documentID: constructDocumentId(uniqueId: uniqueId, documentId: documentID),
         name: name,
         workflowTask: [
           WorkflowTaskModel(

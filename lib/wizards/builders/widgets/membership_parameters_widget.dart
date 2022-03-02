@@ -40,7 +40,7 @@ class _MembershipParametersWidgetState
   @override
   Widget build(BuildContext context) {
     return topicContainer(widget.app, context,
-        title: 'Generate Membership Workflow',
+        title: 'Generate a default Membership Workflow',
         collapsible: true,
         collapsed: true,
         children: [

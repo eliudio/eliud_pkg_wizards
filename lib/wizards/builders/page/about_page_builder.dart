@@ -1,5 +1,6 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
+import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
@@ -27,6 +28,7 @@ class AboutPageBuilder extends PageBuilder {
   final SectionImageAlignment alignment = SectionImageAlignment.Left;
 
   AboutPageBuilder(
+      String uniqueId,
       this.componentId,
     this.aboutAssetLocation,
     String pageId,
@@ -38,7 +40,7 @@ class AboutPageBuilder extends PageBuilder {
     DrawerModel rightDrawer,
     PageProvider pageProvider,
     ActionProvider actionProvider
-  ) : super(pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
+  ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
             rightDrawer, pageProvider, actionProvider);
 
   Future<PageModel> _setupPage() async {
@@ -52,11 +54,11 @@ class AboutPageBuilder extends PageBuilder {
     components.add(BodyComponentModel(
       documentID: "1",
       componentName: AbstractBookletComponent.componentName,
-      componentId: componentId,
+      componentId: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
     ));
 
     return PageModel(
-        documentID: pageId,
+        documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID!,
         title: "About",
         drawer: leftDrawer,
@@ -105,7 +107,7 @@ class AboutPageBuilder extends PageBuilder {
     }
 
     return BookletModel(
-      documentID: componentId,
+      documentID: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
       name: "About",
       sections: entries,
       appId: app.documentID!,
@@ -121,7 +123,7 @@ class AboutPageBuilder extends PageBuilder {
       await _store(image);
       return await _setupPage();
     } else {
-      return PageWithTextBuilder(
+      return PageWithTextBuilder(uniqueId,
           title,
           description,
           pageId,

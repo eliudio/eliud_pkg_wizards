@@ -1,5 +1,6 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
+import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
@@ -7,9 +8,7 @@ import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/body_component_model.dart';
 import 'package:eliud_core/model/drawer_model.dart';
 import 'package:eliud_core/model/home_menu_model.dart';
-import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/page_model.dart';
-import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/model/storage_conditions_model.dart';
 import 'package:eliud_pkg_etc/model/abstract_repository_singleton.dart';
@@ -21,6 +20,7 @@ class PolicyPageBuilder extends PageBuilder {
   final String title;
 
   PolicyPageBuilder(
+      String uniqueId,
     String pageId,
     AppModel app,
     String memberId,
@@ -32,13 +32,13 @@ class PolicyPageBuilder extends PageBuilder {
     ActionProvider actionProvider,
     this.policy,
     this.title,
-  ) : super(pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
+  ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
             rightDrawer, pageProvider, actionProvider);
 
   PolicyPresentationModel _getPesentationModel(
       PublicMediumModel? policyModel) {
     return PolicyPresentationModel(
-      documentID: policy.documentID,
+      documentID: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID!),
       appId: app.documentID!,
       description: title,
       policy: policyModel,
@@ -65,11 +65,11 @@ class PolicyPageBuilder extends PageBuilder {
       BodyComponentModel(
           documentID: policy.documentID,
           componentName: AbstractPolicyPresentationComponent.componentName,
-          componentId: policy.documentID)
+          componentId: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID!))
     ];
 
     return PageModel(
-        documentID: pageId,
+        documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID!,
         title: title,
         drawer: leftDrawer,

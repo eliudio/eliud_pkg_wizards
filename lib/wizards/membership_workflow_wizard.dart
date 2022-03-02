@@ -1,9 +1,8 @@
-import 'package:eliud_core/core/wizards/registry/new_app_wizard_info_with_action_specification.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/app_model.dart';
-import 'package:eliud_core/model/icon_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
+import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_pkg_medium/platform/medium_platform.dart';
@@ -37,6 +36,7 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   List<NewAppTask>? getCreateTasks(
+    String uniqueId,
     AppModel app,
     NewAppWizardParameters parameters,
     MemberModel member,
@@ -50,11 +50,10 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
     if (parameters is MembershipParameters) {
       if ((parameters.membershipPaidByCard) ||
           (parameters.manuallyPaidMembership)) {
-        var memberId = member.documentID!;
         List<NewAppTask> tasks = [];
         tasks.add(() async {
           print("Membership workflow");
-          await MembershipWorkflowBuilder(
+          await MembershipWorkflowBuilder(uniqueId,
             app.documentID!,
             parameters: parameters,
           ).create();
@@ -69,20 +68,29 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   AppModel updateApp(
+    String uniqueId,
     NewAppWizardParameters parameters,
     AppModel adjustMe,
   ) =>
       adjustMe;
 
   @override
-  String? getPageID(NewAppWizardParameters parameters, String pageType) => null;
+  String? getPageID(String uniqueId, NewAppWizardParameters parameters,
+          String pageType) =>
+      null;
 
   @override
-  ActionModel? getAction(NewAppWizardParameters parameters, AppModel app, String actionType, ) => null;
+  ActionModel? getAction(
+    String uniqueId,
+    NewAppWizardParameters parameters,
+    AppModel app,
+    String actionType,
+  ) =>
+      null;
 
   @override
-  List<MenuItemModel>? getMenuItemsFor(
-          AppModel app, NewAppWizardParameters parameters, MenuType type) =>
+  List<MenuItemModel>? getMenuItemsFor(String uniqueId, AppModel app,
+          NewAppWizardParameters parameters, MenuType type) =>
       null;
 
   @override
@@ -98,6 +106,9 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
           'Unexpected class for parameters: ' + parameters.toString());
     }
   }
+
+  @override
+  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
 }
 
 class MembershipParameters extends NewAppWizardParameters {
