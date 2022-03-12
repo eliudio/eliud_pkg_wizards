@@ -24,6 +24,9 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
   AboutPageWizard() : super('about', 'About', 'Generate a default About Page');
 
   @override
+  String getPackageName() => "eliud_pkg_wizards";
+
+  @override
   NewAppWizardParameters newAppWizardParameters() =>
       ActionSpecificationParametersBase(
         requiresAccessToLocalFileSystem: false,

@@ -20,6 +20,9 @@ class NewPolicyWizard extends NewAppWizardInfo {
   NewPolicyWizard() : super('policy', 'App policy');
 
   @override
+  String getPackageName() => "eliud_pkg_wizards";
+
+  @override
   NewAppWizardParameters newAppWizardParameters() {
     return NewPolicyParameters();
   }

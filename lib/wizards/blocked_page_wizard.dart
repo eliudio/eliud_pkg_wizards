@@ -24,6 +24,9 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
       : super('blocked', 'Blocked', 'Generate a default Blocked Page');
 
   @override
+  String getPackageName() => "eliud_pkg_wizards";
+
+  @override
   NewAppWizardParameters newAppWizardParameters() =>
       ActionSpecificationParametersBase(
         requiresAccessToLocalFileSystem: false,

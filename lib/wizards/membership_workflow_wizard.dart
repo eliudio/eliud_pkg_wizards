@@ -24,6 +24,9 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
         );
 
   @override
+  String getPackageName() => "eliud_pkg_wizards";
+
+  @override
   NewAppWizardParameters newAppWizardParameters() => MembershipParameters(
         manualCcy: 'gbp',
         manualAmount: 20,
