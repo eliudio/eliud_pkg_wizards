@@ -1,11 +1,15 @@
+import 'package:eliud_core/core/wizards/registry/action_specification.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core/model/display_conditions_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_pkg_medium/platform/medium_platform.dart';
+import 'package:eliud_pkg_membership/membership_package.dart';
+import 'package:eliud_pkg_shop/tools/bespoke_models.dart';
 import 'package:flutter/material.dart';
 
 import 'builders/page/about_page_builder.dart';
@@ -15,24 +19,27 @@ import 'builders/workflows/membership_workflow_builder.dart';
 class MembershipWorkflowWizard extends NewAppWizardInfo {
   MembershipWorkflowWizard()
       : super(
-          'membershipworkflow',
-          'Membership Workflow',
+          'membership',
+          'Membership',
         );
 
   @override
   NewAppWizardParameters newAppWizardParameters() => MembershipParameters(
-        manuallyPaidMembership: true,
-        membershipPaidByCard: false,
-        autoCcy: 'gbp',
-        autoAmount: 20,
         manualCcy: 'gbp',
         manualAmount: 20,
-        payTo: "Mr Minkey",
-        country: "United Kingdom",
-        bankIdentifierCode: "Bank ID Code",
-        payeeIBAN: "IBAN 543232187632167",
-        bankName: "Bank Of America",
-      );
+        payTo: 'Mr Minkey',
+        country: 'United Kingdom',
+        bankIdentifierCode: 'Bank ID Code',
+        payeeIBAN: 'IBAN 543232187632167',
+        bankName: 'Bank Of America',
+        joinMedhod: JoinMethod.JoinForFree,
+      joinSpecifications: ActionSpecification(
+          requiresAccessToLocalFileSystem: false,
+          availableInLeftDrawer: false,
+          availableInRightDrawer: false,
+          availableInAppBar: true,
+          availableInHomeMenu: false,
+          available: false));
 
   @override
   List<NewAppTask>? getCreateTasks(
@@ -48,18 +55,15 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
     ActionProvider actionProvider,
   ) {
     if (parameters is MembershipParameters) {
-      if ((parameters.membershipPaidByCard) ||
-          (parameters.manuallyPaidMembership)) {
-        List<NewAppTask> tasks = [];
-        tasks.add(() async {
-          print("Membership workflow");
-          await MembershipWorkflowBuilder(uniqueId,
-            app.documentID!,
-            parameters: parameters,
-          ).create();
-        });
-        return tasks;
-      }
+      List<NewAppTask> tasks = [];
+      tasks.add(() async {
+        print("Membership workflow");
+        await MembershipWorkflowBuilder(uniqueId,
+          app.documentID!,
+              parameters: parameters,
+        ).create();
+      });
+      return tasks;
     } else {
       throw Exception(
           'Unexpected class for parameters: ' + parameters.toString());
@@ -90,8 +94,19 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   List<MenuItemModel>? getMenuItemsFor(String uniqueId, AppModel app,
-          NewAppWizardParameters parameters, MenuType type) =>
-      null;
+          NewAppWizardParameters parameters, MenuType type) {
+    return [MenuItemModel(
+        documentID: "join",
+        text: "JOIN",
+        description: "Request membership",
+        icon: null,
+        action: WorkflowActionModel(app,
+            conditions: DisplayConditionsModel(
+              privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
+              packageCondition: MembershipPackage.MEMBER_HAS_NO_MEMBERSHIP_YET,
+            ),
+            workflow: MembershipWorkflowBuilder.dummyWorkflowModel(app.documentID!, uniqueId)))];
+  }
 
   @override
   Widget wizardParametersWidget(
@@ -109,15 +124,28 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
+
+}
+
+enum JoinMethod { JoinForFree, JoinWithManualPayment, JoinByCard }
+
+JoinMethod toJoinMethod(int? value) {
+  switch (value) {
+    case 0:
+      return JoinMethod.JoinForFree;
+    case 1:
+      return JoinMethod.JoinWithManualPayment;
+    case 2:
+      return JoinMethod.JoinByCard;
+  }
+  return JoinMethod.JoinForFree;
 }
 
 class MembershipParameters extends NewAppWizardParameters {
-  bool manuallyPaidMembership;
-  bool membershipPaidByCard;
+  final ActionSpecification joinSpecifications;
+  JoinMethod joinMedhod;
   double manualAmount;
   String manualCcy;
-  double autoAmount;
-  String autoCcy;
   String payTo;
   String country;
   String bankIdentifierCode;
@@ -125,12 +153,10 @@ class MembershipParameters extends NewAppWizardParameters {
   String bankName;
 
   MembershipParameters({
-    required this.manuallyPaidMembership,
-    required this.membershipPaidByCard,
+    required this.joinSpecifications,
+    required this.joinMedhod,
     required this.manualCcy,
     required this.manualAmount,
-    required this.autoCcy,
-    required this.autoAmount,
     required this.payTo,
     required this.country,
     required this.bankIdentifierCode,
