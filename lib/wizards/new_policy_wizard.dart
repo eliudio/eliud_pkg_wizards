@@ -64,7 +64,6 @@ class NewPolicyWizard extends NewAppWizardInfo {
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
     PageProvider pageProvider,
-    ActionProvider actionProvider,
   ) {
     if (parameters is NewPolicyParameters) {
       var policySpecifications = parameters.actionSpecifications;
@@ -102,7 +101,6 @@ class NewPolicyWizard extends NewAppWizardInfo {
                 leftDrawerProvider(),
                 rightDrawerProvider(),
                 pageProvider,
-                actionProvider,
                 policyMedium,
                 'Policy')
                 .create();

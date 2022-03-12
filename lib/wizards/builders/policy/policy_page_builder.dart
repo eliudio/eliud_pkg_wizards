@@ -29,11 +29,10 @@ class PolicyPageBuilder extends PageBuilder {
     DrawerModel leftDrawer,
     DrawerModel rightDrawer,
     PageProvider pageProvider,
-    ActionProvider actionProvider,
     this.policy,
     this.title,
   ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
-            rightDrawer, pageProvider, actionProvider);
+            rightDrawer, pageProvider, );
 
   PolicyPresentationModel _getPesentationModel(
       PublicMediumModel? policyModel) {

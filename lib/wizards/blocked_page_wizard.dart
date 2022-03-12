@@ -49,7 +49,6 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
     PageProvider pageProvider,
-    ActionProvider actionProvider,
   ) {
     if (parameters is ActionSpecificationParametersBase) {
       var blockedPageSpecifications = parameters.actionSpecifications;
@@ -71,7 +70,7 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
                   leftDrawerProvider(),
                   rightDrawerProvider(),
                   pageProvider,
-                  actionProvider)
+                  )
               .create();
         });
         return tasks;

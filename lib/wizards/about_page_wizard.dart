@@ -59,7 +59,6 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
     PageProvider pageProvider,
-    ActionProvider actionProvider,
   ) {
     if (parameters is ActionSpecificationParametersBase) {
       var aboutPageSpecifications = parameters.actionSpecifications;
@@ -80,7 +79,7 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
                   leftDrawerProvider(),
                   rightDrawerProvider(),
                   pageProvider,
-                  actionProvider)
+                  )
               .create();
         });
         return tasks;
