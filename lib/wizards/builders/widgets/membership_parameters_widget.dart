@@ -45,7 +45,6 @@ class _MembershipParametersWidgetState
       Container(height: 20),
       ActionSpecificationWidget(
           app: widget.app,
-          enabled: true,
           actionSpecification: widget.parameters.joinSpecifications,
           label: 'Join Button'),
       ListView(shrinkWrap: true, physics: ScrollPhysics(), children: [

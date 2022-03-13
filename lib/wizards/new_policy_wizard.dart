@@ -50,7 +50,6 @@ class NewPolicyWizard extends NewAppWizardInfo {
           AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
       return ActionSpecificationWidget(
           app: app,
-          enabled: hasAccessToLocalFileSystem,
           actionSpecification: parameters.actionSpecifications,
           label: 'Generate a default Example Policy');
     } else {
