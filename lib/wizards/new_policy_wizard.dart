@@ -11,7 +11,8 @@ import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
 import 'package:eliud_pkg_medium/platform/medium_platform.dart';
 import 'package:flutter/material.dart';
 import 'builders/policy/app_policy_builder.dart';
-import 'builders/policy/policy_medium_builder.dart';
+import 'builders/policy/jpg_policy_medium_builder.dart';
+import 'builders/policy/pdf_policy_medium_builder.dart';
 import 'builders/policy/policy_page_builder.dart';
 
 class NewPolicyWizard extends NewAppWizardInfo {
@@ -77,7 +78,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
 
         tasks.add(() async {
           print("Policy Medium");
-          var policyMedium = await PolicyMediumBuilder(uniqueId, app, memberId).create();
+          var policyMedium = await JpgPolicyMediumBuilder(uniqueId, app, memberId).create();
           parameters.registerTheAppPolicyMedium(policyMedium);
         });
 

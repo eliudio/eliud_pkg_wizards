@@ -37,4 +37,5 @@ flutter:
   assets:
     - packages/eliud_pkg_wizards/assets/about.png
     - packages/eliud_pkg_wizards/assets/new_app/legal/policies.pdf
+    - packages/eliud_pkg_wizards/assets/new_app/legal/policies.jpg
     - packages/eliud_pkg_wizards/assets/blocked.png
