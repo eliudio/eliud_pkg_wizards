@@ -18,9 +18,6 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
   static String aboutAssetPath =
       'packages/eliud_pkg_wizards/assets/about.png';
 
-  static bool hasAccessToLocalFileSystem =
-      AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
-
   AboutPageWizard() : super('about', 'About', 'Generate a default About Page');
 
   @override
@@ -73,7 +70,7 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
           await AboutPageBuilder(
                   uniqueId,
                   aboutComponentIdentifier,
-                  hasAccessToLocalFileSystem ? aboutAssetPath : null,
+                  aboutAssetPath,
                   aboutPageId,
                   app,
                   memberId,
