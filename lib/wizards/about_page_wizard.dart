@@ -58,7 +58,6 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
     AppBarProvider appBarProvider,
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
-    PageProvider pageProvider,
   ) {
     if (parameters is ActionSpecificationParametersBase) {
       var aboutPageSpecifications = parameters.actionSpecifications;
@@ -78,7 +77,6 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
                   appBarProvider(),
                   leftDrawerProvider(),
                   rightDrawerProvider(),
-                  pageProvider,
                   )
               .create();
         });

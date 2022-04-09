@@ -54,7 +54,6 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
     AppBarProvider appBarProvider,
     DrawerProvider leftDrawerProvider,
     DrawerProvider rightDrawerProvider,
-    PageProvider pageProvider,
   ) {
     if (parameters is MembershipParameters) {
       List<NewAppTask> tasks = [];
