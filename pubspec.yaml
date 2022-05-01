@@ -16,9 +16,6 @@ dependencies:
   eliud_pkg_text:
     path: ../eliud_pkg_text
 
-  eliud_pkg_medium:
-    path: ../eliud_pkg_medium
-
   eliud_pkg_fundamentals:
     path: ../eliud_pkg_fundamentals
 
