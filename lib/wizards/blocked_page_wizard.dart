@@ -1,3 +1,4 @@
+import 'package:eliud_core/core/registry.dart';
 import 'package:eliud_core/core/wizards/registry/new_app_wizard_info_with_action_specification.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/model/app_model.dart';
@@ -6,7 +7,6 @@ import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
-import 'package:eliud_pkg_medium/platform/medium_platform.dart';
 import 'package:flutter/material.dart';
 
 import 'builders/page/blocked_page_builder.dart';
@@ -17,8 +17,7 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
       'packages/eliud_pkg_wizards/assets/blocked.png';
   static String blockedComponentId = "blocked";
 
-  static bool hasAccessToLocalFileSystem =
-      AbstractMediumPlatform.platform!.hasAccessToLocalFilesystem();
+  static bool hasAccessToLocalFileSystem = Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
 
   BlockedPageWizard()
       : super('blocked', 'Blocked', 'Generate a default Blocked Page');

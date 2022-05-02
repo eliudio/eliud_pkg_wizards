@@ -7,7 +7,6 @@ import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
-import 'package:eliud_pkg_medium/platform/medium_platform.dart';
 import 'package:eliud_pkg_membership/membership_package.dart';
 import 'package:eliud_pkg_shop/tools/bespoke_models.dart';
 import 'package:flutter/material.dart';
