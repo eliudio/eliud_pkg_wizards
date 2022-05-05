@@ -11,6 +11,7 @@ import 'package:eliud_core/style/frontend/has_divider.dart';
 import 'package:eliud_core/style/frontend/has_list_tile.dart';
 import 'package:eliud_core/style/frontend/has_progress_indicator.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
+import 'package:eliud_core/tools/helpers/parse_helper.dart';
 import 'package:eliud_core/tools/screen_size.dart';
 import 'package:eliud_core/tools/widgets/header_widget.dart';
 import 'package:flutter/foundation.dart';
@@ -108,7 +109,7 @@ class _MembershipParametersWidgetState
                     context,
                     initialValue: widget.parameters.manualAmount.toString(),
                     valueChanged: (value) {
-                      widget.parameters.manualAmount = double.parse(value);
+                      widget.parameters.manualAmount = double_parse(value);
                     },
                     decoration: const InputDecoration(
                       hintText: 'Amount',
