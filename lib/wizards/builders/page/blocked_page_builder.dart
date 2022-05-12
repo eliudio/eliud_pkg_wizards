@@ -92,7 +92,7 @@ class BlockedPageBuilder extends PageBuilder {
 
     return BookletModel(
       documentID: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier),
-      name: "Blocked!",
+      description: "Blocked!",
       sections: entries,
       appId: app.documentID!,
       conditions: StorageConditionsModel(

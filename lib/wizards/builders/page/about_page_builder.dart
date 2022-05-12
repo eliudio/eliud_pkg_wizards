@@ -106,7 +106,7 @@ class AboutPageBuilder extends PageBuilder {
 
     return BookletModel(
       documentID: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
-      name: "About",
+      description: "About",
       sections: entries,
       appId: app.documentID!,
       conditions: StorageConditionsModel(
