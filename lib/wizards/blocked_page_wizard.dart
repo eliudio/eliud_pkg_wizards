@@ -56,7 +56,7 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
 
       if (blockedPageSpecifications.shouldCreatePageDialogOrWorkflow()) {
         List<NewAppTask> tasks = [];
-        var memberId = member.documentID!;
+        var memberId = member.documentID;
         tasks.add(() async {
           print("Blocked Page");
           await BlockedPageBuilder(

@@ -39,7 +39,7 @@ class BlockedPageBuilder extends PageBuilder {
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
-        .pageRepository(app.documentID!)!
+        .pageRepository(app.documentID)!
         .add(_page());
   }
 
@@ -52,7 +52,7 @@ class BlockedPageBuilder extends PageBuilder {
 
     return PageModel(
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
-        appId: app.documentID!,
+        appId: app.documentID,
         title: "Blocked !",
         drawer: leftDrawer,
         endDrawer: rightDrawer,
@@ -94,7 +94,7 @@ class BlockedPageBuilder extends PageBuilder {
       documentID: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier),
       description: "Blocked!",
       sections: entries,
-      appId: app.documentID!,
+      appId: app.documentID,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
               PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
@@ -103,7 +103,7 @@ class BlockedPageBuilder extends PageBuilder {
 
   Future<void> _setupBlocked(PlatformMediumModel blockedImage) async {
     await AbstractRepositorySingleton.singleton
-        .bookletRepository(app.documentID!)!
+        .bookletRepository(app.documentID)!
         .add(_blocked(blockedImage));
   }
 

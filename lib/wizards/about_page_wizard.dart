@@ -61,7 +61,7 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
     if (parameters is ActionSpecificationParametersBase) {
       var aboutPageSpecifications = parameters.actionSpecifications;
       if (aboutPageSpecifications.shouldCreatePageDialogOrWorkflow()) {
-        var memberId = member.documentID!;
+        var memberId = member.documentID;
         List<NewAppTask> tasks = [];
         tasks.add(() async {
           print("About Page");

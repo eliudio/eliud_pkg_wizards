@@ -36,8 +36,8 @@ class PolicyPageBuilder extends PageBuilder {
   PolicyPresentationModel _getPesentationModel(
       PublicMediumModel? policyModel) {
     return PolicyPresentationModel(
-      documentID: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID!),
-      appId: app.documentID!,
+      documentID: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID),
+      appId: app.documentID,
       description: title,
       policy: policyModel,
       conditions: StorageConditionsModel(
@@ -48,13 +48,13 @@ class PolicyPageBuilder extends PageBuilder {
 
   Future<PolicyPresentationModel> _createPresentationComponent(
       PublicMediumModel? policyModel) async {
-    return await policyPresentationRepository(appId: app.documentID!)!
+    return await policyPresentationRepository(appId: app.documentID)!
         .add(_getPesentationModel(policyModel));
   }
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
-        .pageRepository(app.documentID!)!
+        .pageRepository(app.documentID)!
         .add(_page());
   }
 
@@ -63,12 +63,12 @@ class PolicyPageBuilder extends PageBuilder {
       BodyComponentModel(
           documentID: policy.documentID,
           componentName: AbstractPolicyPresentationComponent.componentName,
-          componentId: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID!))
+          componentId: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID))
     ];
 
     return PageModel(
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
-        appId: app.documentID!,
+        appId: app.documentID,
         title: title,
         drawer: leftDrawer,
         endDrawer: rightDrawer,

@@ -43,7 +43,7 @@ class AboutPageBuilder extends PageBuilder {
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
-        .pageRepository(app.documentID!)!
+        .pageRepository(app.documentID)!
         .add(_page());
   }
 
@@ -57,7 +57,7 @@ class AboutPageBuilder extends PageBuilder {
 
     return PageModel(
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
-        appId: app.documentID!,
+        appId: app.documentID,
         title: "About",
         drawer: leftDrawer,
         endDrawer: rightDrawer,
@@ -72,7 +72,7 @@ class AboutPageBuilder extends PageBuilder {
 
   Future<String?> _store(PlatformMediumModel platformMediumModel) async {
     return (await AbstractRepositorySingleton.singleton
-            .bookletRepository(app.documentID!)!
+            .bookletRepository(app.documentID)!
             .add(_header(platformMediumModel)))
         .documentID;
   }
@@ -108,7 +108,7 @@ class AboutPageBuilder extends PageBuilder {
       documentID: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
       description: "About",
       sections: entries,
-      appId: app.documentID!,
+      appId: app.documentID,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
               PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),

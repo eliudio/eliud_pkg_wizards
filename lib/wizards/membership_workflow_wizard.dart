@@ -59,7 +59,7 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
       tasks.add(() async {
         print("Membership workflow");
         await MembershipWorkflowBuilder(uniqueId,
-          app.documentID!,
+          app.documentID,
               parameters: parameters,
         ).create();
       });
@@ -105,7 +105,7 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
               privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
               packageCondition: MembershipPackage.MEMBER_HAS_NO_MEMBERSHIP_YET,
             ),
-            workflow: MembershipWorkflowBuilder.dummyWorkflowModel(app.documentID!, uniqueId)))];
+            workflow: MembershipWorkflowBuilder.dummyWorkflowModel(app.documentID, uniqueId)))];
   }
 
   @override

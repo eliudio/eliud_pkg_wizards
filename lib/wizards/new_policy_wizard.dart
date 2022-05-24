@@ -67,10 +67,10 @@ class NewPolicyWizard extends NewAppWizardInfo {
   ) {
     if (parameters is NewPolicyParameters) {
       var policySpecifications = parameters.actionSpecifications;
-      var appId = app.documentID!;
+      var appId = app.documentID;
       if (policySpecifications.shouldCreatePageDialogOrWorkflow()) {
         List<NewAppTask> tasks = [];
-        var memberId = member.documentID!;
+        var memberId = member.documentID;
 
         tasks.add(() async {
           print("Policy Medium");
