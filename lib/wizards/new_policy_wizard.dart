@@ -101,7 +101,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
                 leftDrawerProvider(),
                 rightDrawerProvider(),
                 policyMedium,
-                'Policy')
+              'Policy','Policy',)
                 .create();
           }
         });

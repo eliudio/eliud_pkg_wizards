@@ -54,6 +54,7 @@ class BlockedPageBuilder extends PageBuilder {
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID,
         title: "Blocked !",
+        description: "Blocked !",
         drawer: leftDrawer,
         endDrawer: rightDrawer,
         appBar: theAppBar,
@@ -114,6 +115,7 @@ class BlockedPageBuilder extends PageBuilder {
       return await _setupPage();
     } else {
       return PageWithTextBuilder(uniqueId,
+          'Blocked',
           'Blocked',
           'You are blocked',
           pageId,

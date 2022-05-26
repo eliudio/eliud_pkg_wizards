@@ -59,6 +59,7 @@ class AboutPageBuilder extends PageBuilder {
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID,
         title: "About",
+        description: "About",
         drawer: leftDrawer,
         endDrawer: rightDrawer,
         appBar: theAppBar,
@@ -87,7 +88,8 @@ class AboutPageBuilder extends PageBuilder {
   }
 
   static String title = 'About me';
-  static String description = "Welcome to my new app. .\n\nMy name is X. .\n\nI am the founder of Y. I enjoy making nice things and people love my litte pieces of art. So, one day I decided to share my products with the wider world. That's how Y was created. I hope you enjoy my shop.\n\nX";
+  static String description = 'About me';
+  static String text = "Welcome to my new app. .\n\nMy name is X. .\n\nI am the founder of Y. I enjoy making nice things and people love my litte pieces of art. So, one day I decided to share my products with the wider world. That's how Y was created. I hope you enjoy my shop.\n\nX";
 
   BookletModel _header(PlatformMediumModel memberMediumModel) {
     List<SectionModel> entries = [];
@@ -124,6 +126,7 @@ class AboutPageBuilder extends PageBuilder {
       return PageWithTextBuilder(uniqueId,
           title,
           description,
+          text,
           pageId,
           app,
           memberId,

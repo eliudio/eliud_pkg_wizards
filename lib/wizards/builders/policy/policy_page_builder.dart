@@ -18,6 +18,7 @@ import 'package:eliud_pkg_etc/model/policy_presentation_model.dart';
 class PolicyPageBuilder extends PageBuilder {
   final PublicMediumModel policy;
   final String title;
+  final String description;
 
   PolicyPageBuilder(
       String uniqueId,
@@ -30,6 +31,7 @@ class PolicyPageBuilder extends PageBuilder {
     DrawerModel rightDrawer,
     this.policy,
     this.title,
+      this.description,
   ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
             rightDrawer, );
 
@@ -70,6 +72,7 @@ class PolicyPageBuilder extends PageBuilder {
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
         appId: app.documentID,
         title: title,
+        description: description,
         drawer: leftDrawer,
         endDrawer: rightDrawer,
         appBar: theAppBar,
