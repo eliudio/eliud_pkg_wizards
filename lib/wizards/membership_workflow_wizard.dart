@@ -18,8 +18,8 @@ import 'builders/workflows/membership_workflow_builder.dart';
 class MembershipWorkflowWizard extends NewAppWizardInfo {
   MembershipWorkflowWizard()
       : super(
-          'membership',
-          'Membership',
+          'join membership',
+          'Join Membership',
         );
 
   @override
@@ -38,8 +38,8 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
       joinSpecifications: ActionSpecification(
           requiresAccessToLocalFileSystem: false,
           availableInLeftDrawer: false,
-          availableInRightDrawer: false,
-          availableInAppBar: true,
+          availableInRightDrawer: true,
+          availableInAppBar: false,
           availableInHomeMenu: false,
           available: false));
 
@@ -95,17 +95,25 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
   @override
   List<MenuItemModel>? getMenuItemsFor(String uniqueId, AppModel app,
           NewAppWizardParameters parameters, MenuType type) {
-    return [MenuItemModel(
-        documentID: "join",
-        text: "JOIN",
-        description: "Request membership",
-        icon: null,
-        action: WorkflowActionModel(app,
-            conditions: DisplayConditionsModel(
-              privilegeLevelRequired: PrivilegeLevelRequired.NoPrivilegeRequired,
-              packageCondition: MembershipPackage.MEMBER_HAS_NO_MEMBERSHIP_YET,
-            ),
-            workflow: MembershipWorkflowBuilder.dummyWorkflowModel(app.documentID, uniqueId)))];
+    if (parameters is MembershipParameters) {
+      if (parameters.joinSpecifications.should(type)) {
+        return [MenuItemModel(
+            documentID: "join",
+            text: "JOIN",
+            description: "Request membership",
+            icon: null,
+            action: WorkflowActionModel(app,
+                conditions: DisplayConditionsModel(
+                  privilegeLevelRequired: PrivilegeLevelRequired
+                      .NoPrivilegeRequired,
+                  packageCondition: MembershipPackage
+                      .MEMBER_HAS_NO_MEMBERSHIP_YET,
+                ),
+                workflow: MembershipWorkflowBuilder.dummyWorkflowModel(
+                    app.documentID, uniqueId)))
+        ];
+      }
+    }
   }
 
   @override
