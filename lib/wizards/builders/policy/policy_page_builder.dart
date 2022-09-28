@@ -5,6 +5,7 @@ import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
 import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core/model/app_policy_model.dart';
 import 'package:eliud_core/model/body_component_model.dart';
 import 'package:eliud_core/model/drawer_model.dart';
 import 'package:eliud_core/model/home_menu_model.dart';
@@ -16,7 +17,7 @@ import 'package:eliud_pkg_etc/model/policy_presentation_component.dart';
 import 'package:eliud_pkg_etc/model/policy_presentation_model.dart';
 
 class PolicyPageBuilder extends PageBuilder {
-  final PublicMediumModel policy;
+  final AppPolicyModel appPolicy;
   final String title;
   final String description;
 
@@ -29,29 +30,27 @@ class PolicyPageBuilder extends PageBuilder {
     AppBarModel theAppBar,
     DrawerModel leftDrawer,
     DrawerModel rightDrawer,
-    this.policy,
+    this.appPolicy,
     this.title,
       this.description,
   ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
             rightDrawer, );
 
-  PolicyPresentationModel _getPesentationModel(
-      PublicMediumModel? policyModel) {
+  PolicyPresentationModel _getPesentationModel() {
     return PolicyPresentationModel(
-      documentID: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID),
+      documentID: constructDocumentId(uniqueId: uniqueId, documentId: appPolicy.documentID),
       appId: app.documentID,
       description: title,
-      policy: policyModel,
+      policies: appPolicy,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
               PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
     );
   }
 
-  Future<PolicyPresentationModel> _createPresentationComponent(
-      PublicMediumModel? policyModel) async {
+  Future<PolicyPresentationModel> _createPresentationComponent() async {
     return await policyPresentationRepository(appId: app.documentID)!
-        .add(_getPesentationModel(policyModel));
+        .add(_getPesentationModel());
   }
 
   Future<PageModel> _setupPage() async {
@@ -63,9 +62,9 @@ class PolicyPageBuilder extends PageBuilder {
   PageModel _page() {
     List<BodyComponentModel> components = [
       BodyComponentModel(
-          documentID: policy.documentID,
+          documentID: appPolicy.documentID,
           componentName: AbstractPolicyPresentationComponent.componentName,
-          componentId: constructDocumentId(uniqueId: uniqueId, documentId: policy.documentID))
+          componentId: constructDocumentId(uniqueId: uniqueId, documentId: appPolicy.documentID))
     ];
 
     return PageModel(
@@ -85,7 +84,7 @@ class PolicyPageBuilder extends PageBuilder {
   }
 
   Future<PageModel> create() async {
-    await _createPresentationComponent(policy);
+    await _createPresentationComponent();
     return await _setupPage();
   }
 }

@@ -78,20 +78,22 @@ class NewPolicyWizard extends NewAppWizardInfo {
           parameters.registerTheAppPolicyMedium(policyMedium);
         });
 
+        AppPolicyModel? policyModel;
         tasks.add(() async {
           print("Policy Model");
           var policyMedium = parameters.appPolicyMedium;
           if (policyMedium != null) {
-            AppPolicyModel? policyModel = await AppPolicyBuilder(
+            policyModel = await AppPolicyBuilder(
                 uniqueId, appId, memberId, policyMedium).create();
-            parameters.registerTheAppPolicy(policyModel);
+            if (policyModel != null) {
+              parameters.registerTheAppPolicy(policyModel!);
+            }
           }
         });
 
         tasks.add(() async {
           print("Policy Page");
-          var policyMedium = parameters.appPolicyMedium;
-          if (policyMedium != null) {
+          if (policyModel != null) {
             await PolicyPageBuilder(uniqueId,
                 policyPageId,
                 app,
@@ -100,7 +102,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
                 appBarProvider(),
                 leftDrawerProvider(),
                 rightDrawerProvider(),
-                policyMedium,
+              policyModel!,
               'Policy','Policy',)
                 .create();
           }
@@ -117,15 +119,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
   AppModel updateApp(String uniqueId,
       NewAppWizardParameters parameters,
     AppModel adjustMe,
-  ) {
-    if (parameters is NewPolicyParameters) {
-      adjustMe.policies = parameters.appPolicyModel;
-      return adjustMe;
-    } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
-    }
-  }
+  ) => adjustMe;
 
   @override
   String? getPageID(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
