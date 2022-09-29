@@ -21,14 +21,14 @@ class JpgPolicyMediumBuilder {
   String policiesAssetLocation() =>
       'packages/eliud_pkg_wizards/assets/new_app/legal/policies.jpg';
 
-  Future<PublicMediumModel> create() async {
+  Future<PlatformMediumModel> create() async {
     var policyID = 'policy_id';
     var policy = await _uploadPublicJpg(
         app, memberId, policiesAssetLocation(), policyID, );
     return policy;
   }
 
-  Future<PublicMediumModel> _uploadPublicJpg(
+  Future<PlatformMediumModel> _uploadPublicJpg(
       AppModel app,
       String memberId,
       String assetPath,
@@ -36,7 +36,7 @@ class JpgPolicyMediumBuilder {
       /*FeedbackProgress? feedbackProgress*/) async {
     String memberMediumDocumentID = newRandomKey();
 
-    return await PublicMediumHelper(app, memberId,)
+    return await PlatformMediumHelper(app, memberId, PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
         .createThumbnailUploadPhotoAsset(
         constructDocumentId(uniqueId: uniqueId, documentId: memberMediumDocumentID), assetPath,
         feedbackProgress: (feedback) {}, );

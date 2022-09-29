@@ -5,6 +5,7 @@ import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/app_policy_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
+import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
@@ -140,7 +141,7 @@ class NewPolicyParameters extends ActionSpecificationParametersBase {
   static bool hasAccessToLocalFileSystem = Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
 
   AppPolicyModel? appPolicyModel;
-  PublicMediumModel? appPolicyMedium;
+  PlatformMediumModel? appPolicyMedium;
 
   NewPolicyParameters()
       : super(
@@ -156,7 +157,7 @@ class NewPolicyParameters extends ActionSpecificationParametersBase {
     appPolicyModel = theAppPolicyModel;
   }
 
-  void registerTheAppPolicyMedium(PublicMediumModel theAppPolicyMedium) {
+  void registerTheAppPolicyMedium(PlatformMediumModel theAppPolicyMedium) {
     appPolicyMedium = theAppPolicyMedium;
   }
 }

@@ -13,7 +13,7 @@ class AppPolicyBuilder {
   final String uniqueId;
   final String appId;
   final String memberId;
-  PublicMediumModel policy;
+  PlatformMediumModel policy;
 
   AppPolicyBuilder(
     this.uniqueId,
