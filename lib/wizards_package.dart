@@ -9,6 +9,10 @@ import 'package:eliud_pkg_wizards/wizards/new_policy_wizard.dart';
 import 'wizards/about_page_wizard.dart';
 import 'wizards/blocked_page_wizard.dart';
 
+import 'package:eliud_pkg_wizards/wizards_package_stub.dart'
+if (dart.library.io) 'wizards_mobile_package.dart'
+if (dart.library.html) 'wizards_web_package.dart';
+
 abstract class WizardsPackage extends Package {
   WizardsPackage() : super('eliud_pkg_wizards');
 
@@ -29,4 +33,6 @@ abstract class WizardsPackage extends Package {
 
   @override
   List<MemberCollectionInfo>? getMemberCollectionInfo() => null;
+
+  static WizardsPackage instance() => getWizardsPackage();
 }
