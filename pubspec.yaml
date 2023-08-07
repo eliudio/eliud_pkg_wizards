@@ -1,32 +1,29 @@
 name: eliud_pkg_wizards
 description: A package with wizards for pages
+homepage: https://eliud.io
+repository: https://github.com/eliudio/eliud
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0-271.7.beta <3.0.0'
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  eliud_core:
-    path: ../eliud_core
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.2
 
-  eliud_pkg_text:
-    path: ../eliud_pkg_text
-
-  eliud_pkg_fundamentals:
-    path: ../eliud_pkg_fundamentals
-
-  eliud_pkg_etc:
-    path: ../eliud_pkg_etc
-
-  eliud_pkg_shop:
-    path: ../eliud_pkg_shop
-
-  eliud_pkg_membership:
-    path: ../eliud_pkg_membership
+  eliud_core: ^1.0.1
+  eliud_pkg_text: ^1.0.0
+  eliud_pkg_fundamentals: ^1.0.0
+  eliud_pkg_etc: ^1.0.0
+  eliud_pkg_shop: ^1.0.0
+  eliud_pkg_membership: ^1.0.0
+  eliud_pkg_workflow: ^1.0.0
+  eliud_pkg_pay: ^1.0.0
 
 flutter:
   uses-material-design: true
@@ -36,3 +33,8 @@ flutter:
     - packages/eliud_pkg_wizards/assets/new_app/legal/policies.pdf
     - packages/eliud_pkg_wizards/assets/new_app/legal/policies.jpg
     - packages/eliud_pkg_wizards/assets/blocked.png
+
+platforms:
+  android:
+  ios:
+  web:
