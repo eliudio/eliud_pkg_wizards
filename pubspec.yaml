@@ -1,9 +1,9 @@
 name: eliud_pkg_wizards
 description: A package with wizards for pages
 homepage: https://eliud.io
-repository: https://github.com/eliudio/eliud
+repository: https://github.com/eliudio/eliud_pkg_wizards
 
-version: 1.0.3+1
+version: 1.0.3+3
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
