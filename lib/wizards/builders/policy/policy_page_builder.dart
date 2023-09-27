@@ -37,7 +37,7 @@ class PolicyPageBuilder extends PageBuilder {
             rightDrawer, );
 
   PolicyPresentationModel _getPesentationModel() {
-    return PolicyPresentationModel(
+    var ppm =  PolicyPresentationModel(
       documentID: constructDocumentId(uniqueId: uniqueId, documentId: appPolicy.documentID),
       appId: app.documentID,
       description: title,
@@ -46,11 +46,13 @@ class PolicyPageBuilder extends PageBuilder {
           privilegeLevelRequired:
               PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
     );
+    return ppm;
   }
 
   Future<PolicyPresentationModel> _createPresentationComponent() async {
-    return await policyPresentationRepository(appId: app.documentID)!
-        .add(_getPesentationModel());
+    var ppm = _getPesentationModel();
+    var ppr = policyPresentationRepository(appId: app.documentID)!;
+    return await ppr.add(ppm);
   }
 
   Future<PageModel> _setupPage() async {

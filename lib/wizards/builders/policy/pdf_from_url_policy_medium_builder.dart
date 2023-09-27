@@ -3,43 +3,36 @@ import 'dart:async';
 import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
-import 'package:eliud_core/model/public_medium_model.dart';
 import 'package:eliud_core/model/storage_conditions_model.dart';
 import 'package:eliud_core/tools/random.dart';
 import 'package:eliud_core/tools/storage/platform_medium_helper.dart';
-import 'package:eliud_core/tools/storage/public_medium_helper.dart';
-import 'package:eliud_core/tools/storage/upload_info.dart';
 
-class JpgPolicyMediumBuilder {
+class PdfFromUrlPolicyMediumBuilder {
+  final String pdfUrl;
+  final String baseName;
   final String uniqueId;
   final AppModel app;
   final String memberId;
 
-  JpgPolicyMediumBuilder(this.uniqueId, this.app, this.memberId);
-
-// Policy
-  String policiesAssetLocation() =>
-      'packages/eliud_pkg_wizards/assets/new_app/legal/policies.jpg';
+  PdfFromUrlPolicyMediumBuilder(this.pdfUrl, this.baseName, this.uniqueId, this.app, this.memberId);
 
   Future<PlatformMediumModel> create() async {
     var policyID = 'policy_id';
-    var policy = await _uploadPlatformJpg(
-        app, memberId, policiesAssetLocation(), policyID, );
+    var policy = await _uploadPublicPdf(
+        app, memberId, policyID, );
     return policy;
   }
 
-  Future<PlatformMediumModel> _uploadPlatformJpg(
+  Future<PlatformMediumModel> _uploadPublicPdf(
       AppModel app,
       String memberId,
-      String assetPath,
       String documentID,
       /*FeedbackProgress? feedbackProgress*/) async {
     String memberMediumDocumentID = newRandomKey();
 
     return await PlatformMediumHelper(app, memberId, PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
-        .createThumbnailUploadPhotoAsset(
-        constructDocumentId(uniqueId: uniqueId, documentId: memberMediumDocumentID), assetPath,
-        feedbackProgress: (feedback) {}, );
-
+        .createThumbnailUploadPdfFromUrl(
+      constructDocumentId(uniqueId: uniqueId, documentId: memberMediumDocumentID), pdfUrl, baseName, documentID,
+      feedbackProgress: (feedback) {}, );
   }
 }
