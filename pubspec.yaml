@@ -3,7 +3,7 @@ name: eliud_pkg_wizards
 description: A package with wizards for pages
 homepage: https://eliud.io
 repository: https://github.com/eliudio/eliud_pkg_wizards
-version: 1.0.8+7
+version: 1.0.8+8
 environment:
   sdk: '>=2.17.0 <4.0.0'
   flutter: '>=3.0.0'
@@ -17,7 +17,7 @@ dependencies:
   eliud_pkg_fundamentals: ^1.0.2+6
   eliud_pkg_etc: ^1.0.1+18
   eliud_pkg_shop: ^1.0.1+18
-  eliud_pkg_membership: ^1.0.1+18
+  eliud_pkg_membership: ^1.0.1+19
   eliud_pkg_workflow: ^1.0.1+18
   eliud_pkg_pay: ^1.0.1+19
 flutter:
