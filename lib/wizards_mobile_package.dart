@@ -1,5 +1,4 @@
 
-import 'package:eliud_core/package/package.dart';
 import 'package:eliud_pkg_wizards/wizards_package.dart';
 
 WizardsPackage getWizardsPackage() => WizardsMobilePackage();

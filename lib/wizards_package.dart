@@ -13,7 +13,6 @@ import 'package:eliud_pkg_pay/pay_package.dart';
 import 'package:eliud_pkg_shop/shop_package.dart';
 import 'package:eliud_pkg_text/text_package.dart';
 import 'package:eliud_pkg_wizards/wizards/membership_workflow_wizard.dart';
-import 'package:eliud_pkg_wizards/wizards/new_policy_from_pdf_wizard.dart';
 import 'package:eliud_pkg_wizards/wizards/new_policy_wizard.dart';
 import 'package:eliud_pkg_workflow/workflow_package.dart';
 import 'wizards/about_page_wizard.dart';

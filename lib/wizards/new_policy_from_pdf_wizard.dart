@@ -1,6 +1,5 @@
 import 'package:eliud_core/core/registry.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
-import 'package:eliud_core/core/wizards/widgets/action_specification_widget.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/app_policy_model.dart';
 import 'package:eliud_core/model/member_model.dart';
@@ -13,7 +12,6 @@ import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
 import 'package:eliud_pkg_wizards/wizards/pdf_wizard_param_widget.dart';
 import 'package:flutter/material.dart';
 import 'builders/policy/app_policy_builder.dart';
-import 'builders/policy/jpg_policy_medium_builder.dart';
 import 'builders/policy/pdf_from_url_policy_medium_builder.dart';
 import 'builders/policy/policy_page_builder.dart';
 
@@ -115,6 +113,7 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
       throw Exception(
           'Unexpected class for parameters: ' + parameters.toString());
     }
+    return null;
   }
 
   @override
