@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/storage_conditions_model.dart';
@@ -21,22 +21,30 @@ class JpgPolicyMediumBuilder {
   Future<PlatformMediumModel> create() async {
     var policyID = 'policy_id';
     var policy = await _uploadPlatformJpg(
-        app, memberId, policiesAssetLocation(), policyID, );
+      app,
+      memberId,
+      policiesAssetLocation(),
+      policyID,
+    );
     return policy;
   }
 
   Future<PlatformMediumModel> _uploadPlatformJpg(
-      AppModel app,
-      String memberId,
-      String assetPath,
-      String documentID,
-      /*FeedbackProgress? feedbackProgress*/) async {
+    AppModel app,
+    String memberId,
+    String assetPath,
+    String documentID,
+    /*FeedbackProgress? feedbackProgress*/
+  ) async {
     String memberMediumDocumentID = newRandomKey();
 
-    return await PlatformMediumHelper(app, memberId, PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
+    return await PlatformMediumHelper(app, memberId,
+            PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple)
         .createThumbnailUploadPhotoAsset(
-        constructDocumentId(uniqueId: uniqueId, documentId: memberMediumDocumentID), assetPath,
-        feedbackProgress: (feedback) {}, );
-
+      constructDocumentId(
+          uniqueId: uniqueId, documentId: memberMediumDocumentID),
+      assetPath,
+      feedbackProgress: (feedback) {},
+    );
   }
 }

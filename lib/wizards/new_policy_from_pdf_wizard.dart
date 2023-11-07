@@ -29,15 +29,14 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
   }
 
   @override
-  List<MenuItemModel>? getMenuItemsFor(String uniqueId,
-      AppModel app, NewAppWizardParameters parameters, MenuType type) {
+  List<MenuItemModel>? getMenuItemsFor(String uniqueId, AppModel app,
+      NewAppWizardParameters parameters, MenuType type) {
     if (parameters is NewPolicyFromPdfParameters) {
       if (parameters.actionSpecifications.should(type)) {
         return [menuItem(uniqueId, app, policyPageId, 'Policy', Icons.rule)];
       }
     } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
+      throw Exception('Unexpected class for parameters: $parameters');
     }
     return null;
   }
@@ -51,13 +50,14 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
         parameters: parameters,
       );
     } else {
-      return text(app, context,
-          'Unexpected class for parameters: ' + parameters.toString());
+      return text(app, context, 'Unexpected class for parameters: $parameters');
     }
   }
 
-  List<NewAppTask>? getCreateTasks(String uniqueId,
-      AppModel app,
+  @override
+  List<NewAppTask>? getCreateTasks(
+    String uniqueId,
+    AppModel app,
     NewAppWizardParameters parameters,
     MemberModel member,
     HomeMenuProvider homeMenuProvider,
@@ -74,7 +74,13 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
 
         tasks.add(() async {
           print("Policy Medium");
-          var policyMedium = await PdfFromUrlPolicyMediumBuilder(parameters.pdfUrl ?? "", parameters.baseName ?? "", uniqueId, app , memberId).create();
+          var policyMedium = await PdfFromUrlPolicyMediumBuilder(
+                  parameters.pdfUrl ?? "",
+                  parameters.baseName ?? "",
+                  uniqueId,
+                  app,
+                  memberId)
+              .create();
           parameters.registerTheAppPolicyMedium(policyMedium);
         });
 
@@ -83,8 +89,9 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
           print("Policy Model");
           var policyMedium = parameters.appPolicyMedium;
           if (policyMedium != null) {
-            policyModel = await AppPolicyBuilder(
-                uniqueId, appId, memberId, policyMedium).create();
+            policyModel =
+                await AppPolicyBuilder(uniqueId, appId, memberId, policyMedium)
+                    .create();
             if (policyModel != null) {
               parameters.registerTheAppPolicy(policyModel!);
             }
@@ -94,51 +101,60 @@ class NewPolicyFromPdfWizard extends NewAppWizardInfo {
         tasks.add(() async {
           print("Policy Page");
           if (policyModel != null) {
-            await PolicyPageBuilder(uniqueId,
-                policyPageId,
-                app,
-                memberId,
-                homeMenuProvider(),
-                appBarProvider(),
-                leftDrawerProvider(),
-                rightDrawerProvider(),
+            await PolicyPageBuilder(
+              uniqueId,
+              policyPageId,
+              app,
+              memberId,
+              homeMenuProvider(),
+              appBarProvider(),
+              leftDrawerProvider(),
+              rightDrawerProvider(),
               policyModel!,
-              'Policy','Policy',)
-                .create();
+              'Policy',
+              'Policy',
+            ).create();
           }
         });
         return tasks;
       }
     } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
+      throw Exception('Unexpected class for parameters: $parameters');
     }
     return null;
   }
 
   @override
-  AppModel updateApp(String uniqueId,
-      NewAppWizardParameters parameters,
+  AppModel updateApp(
+    String uniqueId,
+    NewAppWizardParameters parameters,
     AppModel adjustMe,
-  ) => adjustMe;
+  ) =>
+      adjustMe;
 
   @override
-  String? getPageID(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
+  String? getPageID(String uniqueId, NewAppWizardParameters parameters,
+          String pageType) =>
+      null;
 
   @override
-  ActionModel? getAction(String uniqueId,
-      NewAppWizardParameters parameters,
+  ActionModel? getAction(
+    String uniqueId,
+    NewAppWizardParameters parameters,
     AppModel app,
     String actionType,
   ) =>
       null;
 
   @override
-  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
+  PublicMediumModel? getPublicMediumModel(String uniqueId,
+          NewAppWizardParameters parameters, String mediumType) =>
+      null;
 }
 
 class NewPolicyFromPdfParameters extends ActionSpecificationParametersBase {
-  static bool hasAccessToLocalFileSystem = Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
+  static bool hasAccessToLocalFileSystem =
+      Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
 
   AppPolicyModel? appPolicyModel;
   PlatformMediumModel? appPolicyMedium;

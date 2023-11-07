@@ -1,4 +1,4 @@
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart';
 import 'package:eliud_core/model/app_policy_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
@@ -26,7 +26,7 @@ class AppPolicyBuilder {
       policy: policy,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
-              PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
+              PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple),
     );
   }
 

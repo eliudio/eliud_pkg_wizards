@@ -1,6 +1,6 @@
 import 'package:eliud_core/core/wizards/registry/new_app_wizard_info_with_action_specification.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/icon_model.dart';
 import 'package:eliud_core/model/member_model.dart';
@@ -14,8 +14,7 @@ import 'builders/page/about_page_builder.dart';
 class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
   static String aboutPageId = 'about';
   static String aboutComponentIdentifier = "about";
-  static String aboutAssetPath =
-      'packages/eliud_pkg_wizards/assets/about.png';
+  static String aboutAssetPath = 'packages/eliud_pkg_wizards/assets/about.png';
 
   AboutPageWizard() : super('about', 'About', 'Generate a default About Page');
 
@@ -39,13 +38,16 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
 
   MenuItemModel menuItemAbout(String uniqueId, AppModel app, pageID, text) =>
       MenuItemModel(
-          documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageID),
+          documentID:
+              constructDocumentId(uniqueId: uniqueId, documentId: pageID),
           text: text,
           description: text,
           icon: IconModel(
               codePoint: Icons.info.codePoint,
               fontFamily: Icons.settings.fontFamily),
-          action: GotoPage(app, pageID: constructDocumentId(uniqueId: uniqueId, documentId: pageID)));
+          action: GotoPage(app,
+              pageID:
+                  constructDocumentId(uniqueId: uniqueId, documentId: pageID)));
 
   @override
   List<NewAppTask>? getCreateTasks(
@@ -66,24 +68,22 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
         tasks.add(() async {
           print("About Page");
           await AboutPageBuilder(
-                  uniqueId,
-                  aboutComponentIdentifier,
-                  aboutAssetPath,
-                  aboutPageId,
-                  app,
-                  memberId,
-                  homeMenuProvider(),
-                  appBarProvider(),
-                  leftDrawerProvider(),
-                  rightDrawerProvider(),
-                  )
-              .create();
+            uniqueId,
+            aboutComponentIdentifier,
+            aboutAssetPath,
+            aboutPageId,
+            app,
+            memberId,
+            homeMenuProvider(),
+            appBarProvider(),
+            leftDrawerProvider(),
+            rightDrawerProvider(),
+          ).create();
         });
         return tasks;
       }
     } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
+      throw Exception('Unexpected class for parameters: $parameters');
     }
     return null;
   }
@@ -111,5 +111,7 @@ class AboutPageWizard extends NewAppWizardInfoWithActionSpecification {
       null;
 
   @override
-  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
+  PublicMediumModel? getPublicMediumModel(String uniqueId,
+          NewAppWizardParameters parameters, String mediumType) =>
+      null;
 }

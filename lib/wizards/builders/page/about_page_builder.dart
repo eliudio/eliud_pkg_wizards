@@ -1,5 +1,5 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/app_bar_model.dart';
@@ -23,12 +23,12 @@ class AboutPageBuilder extends PageBuilder {
   final String componentId;
   final String? aboutAssetLocation;
   final double imageWidth = 0.3;
-  final RelativeImagePosition imagePosition = RelativeImagePosition.Aside;
-  final SectionImageAlignment alignment = SectionImageAlignment.Left;
+  final RelativeImagePosition imagePosition = RelativeImagePosition.aside;
+  final SectionImageAlignment alignment = SectionImageAlignment.left;
 
   AboutPageBuilder(
-      String uniqueId,
-      this.componentId,
+    String uniqueId,
+    this.componentId,
     this.aboutAssetLocation,
     String pageId,
     AppModel app,
@@ -37,8 +37,16 @@ class AboutPageBuilder extends PageBuilder {
     AppBarModel theAppBar,
     DrawerModel leftDrawer,
     DrawerModel rightDrawer,
-  ) : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
-            rightDrawer, );
+  ) : super(
+          uniqueId,
+          pageId,
+          app,
+          memberId,
+          theHomeMenu,
+          theAppBar,
+          leftDrawer,
+          rightDrawer,
+        );
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
@@ -51,7 +59,8 @@ class AboutPageBuilder extends PageBuilder {
     components.add(BodyComponentModel(
       documentID: "1",
       componentName: AbstractBookletComponent.componentName,
-      componentId: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
+      componentId:
+          constructDocumentId(uniqueId: uniqueId, documentId: componentId),
     ));
 
     return PageModel(
@@ -63,9 +72,10 @@ class AboutPageBuilder extends PageBuilder {
         endDrawer: rightDrawer,
         appBar: theAppBar,
         homeMenu: theHomeMenu,
-        layout: PageLayout.ListView,
+        layout: PageLayout.listView,
         conditions: StorageConditionsModel(
-          privilegeLevelRequired: PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple,
+          privilegeLevelRequired:
+              PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple,
         ),
         bodyComponents: components);
   }
@@ -79,16 +89,14 @@ class AboutPageBuilder extends PageBuilder {
 
   Future<PlatformMediumModel> installAboutImage() async {
     return await PlatformMediumHelper(app, memberId,
-            PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
-        .createThumbnailUploadPhotoAsset(
-      newRandomKey(),
-      aboutAssetLocation!
-    );
+            PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple)
+        .createThumbnailUploadPhotoAsset(newRandomKey(), aboutAssetLocation!);
   }
 
   static String title = 'About me';
   static String description = 'About me';
-  static String text = "Welcome to my new app. .\n\nMy name is X. .\n\nI am the founder of Y. I enjoy making nice things and people love my litte pieces of art. So, one day I decided to share my products with the wider world. That's how Y was created. I hope you enjoy my shop.\n\nX";
+  static String text =
+      "Welcome to my new app. .\n\nMy name is X. .\n\nI am the founder of Y. I enjoy making nice things and people love my litte pieces of art. So, one day I decided to share my products with the wider world. That's how Y was created. I hope you enjoy my shop.\n\nX";
 
   BookletModel _header(PlatformMediumModel memberMediumModel) {
     List<SectionModel> entries = [];
@@ -106,13 +114,14 @@ class AboutPageBuilder extends PageBuilder {
     }
 
     return BookletModel(
-      documentID: constructDocumentId(uniqueId: uniqueId, documentId: componentId),
+      documentID:
+          constructDocumentId(uniqueId: uniqueId, documentId: componentId),
       description: "About",
       sections: entries,
       appId: app.documentID,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
-              PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
+              PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple),
     );
   }
 
@@ -122,18 +131,19 @@ class AboutPageBuilder extends PageBuilder {
       await _store(image);
       return await _setupPage();
     } else {
-      return PageWithTextBuilder(uniqueId,
-          title,
-          description,
-          text,
-          pageId,
-          app,
-          memberId,
-          theHomeMenu,
-          theAppBar,
-          leftDrawer,
-          rightDrawer, )
-          .create();
+      return PageWithTextBuilder(
+        uniqueId,
+        title,
+        description,
+        text,
+        pageId,
+        app,
+        memberId,
+        theHomeMenu,
+        theAppBar,
+        leftDrawer,
+        rightDrawer,
+      ).create();
     }
   }
 }

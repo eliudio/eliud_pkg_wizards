@@ -25,14 +25,14 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   NewAppWizardParameters newAppWizardParameters() => MembershipParameters(
-        manualCcy: 'gbp',
-        manualAmount: 20,
-        payTo: 'Mr Minkey',
-        country: 'United Kingdom',
-        bankIdentifierCode: 'Bank ID Code',
-        payeeIBAN: 'IBAN 543232187632167',
-        bankName: 'Bank Of America',
-        joinMedhod: JoinMethod.JoinForFree,
+      manualCcy: 'gbp',
+      manualAmount: 20,
+      payTo: 'Mr Minkey',
+      country: 'United Kingdom',
+      bankIdentifierCode: 'Bank ID Code',
+      payeeIBAN: 'IBAN 543232187632167',
+      bankName: 'Bank Of America',
+      joinMedhod: JoinMethod.joinForFree,
       joinSpecifications: ActionSpecification(
           requiresAccessToLocalFileSystem: false,
           availableInLeftDrawer: false,
@@ -56,15 +56,15 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
       List<NewAppTask> tasks = [];
       tasks.add(() async {
         print("Membership workflow");
-        await MembershipWorkflowBuilder(uniqueId,
+        await MembershipWorkflowBuilder(
+          uniqueId,
           app.documentID,
-              parameters: parameters,
+          parameters: parameters,
         ).create();
       });
       return tasks;
     } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
+      throw Exception('Unexpected class for parameters: $parameters');
     }
   }
 
@@ -92,23 +92,24 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
 
   @override
   List<MenuItemModel>? getMenuItemsFor(String uniqueId, AppModel app,
-          NewAppWizardParameters parameters, MenuType type) {
+      NewAppWizardParameters parameters, MenuType type) {
     if (parameters is MembershipParameters) {
       if (parameters.joinSpecifications.should(type)) {
-        return [MenuItemModel(
-            documentID: "join",
-            text: "JOIN",
-            description: "Request membership",
-            icon: null,
-            action: WorkflowActionModel(app,
-                conditions: DisplayConditionsModel(
-                  privilegeLevelRequired: PrivilegeLevelRequired
-                      .NoPrivilegeRequired,
-                  packageCondition: MembershipPackage
-                      .MEMBER_HAS_NO_MEMBERSHIP_YET,
-                ),
-                workflow: MembershipWorkflowBuilder.dummyWorkflowModel(
-                    app.documentID, uniqueId)))
+        return [
+          MenuItemModel(
+              documentID: "join",
+              text: "JOIN",
+              description: "Request membership",
+              icon: null,
+              action: WorkflowActionModel(app,
+                  conditions: DisplayConditionsModel(
+                    privilegeLevelRequired:
+                        PrivilegeLevelRequired.noPrivilegeRequired,
+                    packageCondition:
+                        MembershipPackage.memberHasNoMembershipYet,
+                  ),
+                  workflow: MembershipWorkflowBuilder.dummyWorkflowModel(
+                      app.documentID, uniqueId)))
         ];
       }
     }
@@ -124,28 +125,28 @@ class MembershipWorkflowWizard extends NewAppWizardInfo {
         parameters: parameters,
       );
     } else {
-      return text(app, context,
-          'Unexpected class for parameters: ' + parameters.toString());
+      return text(app, context, 'Unexpected class for parameters: $parameters');
     }
   }
 
   @override
-  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
-
+  PublicMediumModel? getPublicMediumModel(String uniqueId,
+          NewAppWizardParameters parameters, String mediumType) =>
+      null;
 }
 
-enum JoinMethod { JoinForFree, JoinWithManualPayment, JoinByCard }
+enum JoinMethod { joinForFree, joinWithManualPayment, joinByCard }
 
 JoinMethod toJoinMethod(int? value) {
   switch (value) {
     case 0:
-      return JoinMethod.JoinForFree;
+      return JoinMethod.joinForFree;
     case 1:
-      return JoinMethod.JoinWithManualPayment;
+      return JoinMethod.joinWithManualPayment;
     case 2:
-      return JoinMethod.JoinByCard;
+      return JoinMethod.joinByCard;
   }
-  return JoinMethod.JoinForFree;
+  return JoinMethod.joinForFree;
 }
 
 class MembershipParameters extends NewAppWizardParameters {
@@ -169,5 +170,5 @@ class MembershipParameters extends NewAppWizardParameters {
     required this.bankIdentifierCode,
     required this.payeeIBAN,
     required this.bankName,
-  }) {}
+  });
 }

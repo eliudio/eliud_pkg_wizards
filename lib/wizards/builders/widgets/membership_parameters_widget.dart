@@ -14,10 +14,10 @@ class MembershipParametersWidget extends StatefulWidget {
   final MembershipParameters parameters;
 
   MembershipParametersWidget({
-    Key? key,
+    super.key,
     required this.app,
     required this.parameters,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -72,7 +72,7 @@ class _MembershipParametersWidgetState
           });
         }),
       ]),
-      if (widget.parameters.joinMedhod != JoinMethod.JoinForFree)
+      if (widget.parameters.joinMedhod != JoinMethod.joinForFree)
         topicContainer(widget.app, context,
             title: 'Payment details',
             collapsible: true,
@@ -97,7 +97,7 @@ class _MembershipParametersWidgetState
                     context,
                     initialValue: widget.parameters.manualAmount.toString(),
                     valueChanged: (value) {
-                      widget.parameters.manualAmount = double_parse(value);
+                      widget.parameters.manualAmount = doubleParse(value);
                     },
                     decoration: const InputDecoration(
                       hintText: 'Amount',
@@ -105,7 +105,7 @@ class _MembershipParametersWidgetState
                     ),
                   )),
               if (widget.parameters.joinMedhod ==
-                  JoinMethod.JoinWithManualPayment)
+                  JoinMethod.joinWithManualPayment)
                 getListTile(context, widget.app,
                     leading: Icon(Icons.description),
                     title: dialogField(
@@ -121,7 +121,7 @@ class _MembershipParametersWidgetState
                       ),
                     )),
               if (widget.parameters.joinMedhod ==
-                  JoinMethod.JoinWithManualPayment)
+                  JoinMethod.joinWithManualPayment)
                 getListTile(context, widget.app,
                     leading: Icon(Icons.description),
                     title: dialogField(
@@ -137,7 +137,7 @@ class _MembershipParametersWidgetState
                       ),
                     )),
               if (widget.parameters.joinMedhod ==
-                  JoinMethod.JoinWithManualPayment)
+                  JoinMethod.joinWithManualPayment)
                 getListTile(context, widget.app,
                     leading: Icon(Icons.description),
                     title: dialogField(
@@ -153,7 +153,7 @@ class _MembershipParametersWidgetState
                       ),
                     )),
               if (widget.parameters.joinMedhod ==
-                  JoinMethod.JoinWithManualPayment)
+                  JoinMethod.joinWithManualPayment)
                 getListTile(context, widget.app,
                     leading: Icon(Icons.description),
                     title: dialogField(
@@ -169,7 +169,7 @@ class _MembershipParametersWidgetState
                       ),
                     )),
               if (widget.parameters.joinMedhod ==
-                  JoinMethod.JoinWithManualPayment)
+                  JoinMethod.joinWithManualPayment)
                 getListTile(context, widget.app,
                     leading: Icon(Icons.description),
                     title: dialogField(

@@ -12,10 +12,10 @@ class PdfWizardParametersWidget extends StatefulWidget {
   final NewPolicyFromPdfParameters parameters;
 
   PdfWizardParametersWidget({
-    Key? key,
+    super.key,
     required this.app,
     required this.parameters,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -56,7 +56,8 @@ class _PdfWizardParametersWidgetState extends State<PdfWizardParametersWidget> {
                 title: dialogField(
                   widget.app,
                   context,
-                  initialValue: widget.parameters.pdfUrl ?? "http://www.xyz.com/policy.pdf",
+                  initialValue: widget.parameters.pdfUrl ??
+                      "http://www.xyz.com/policy.pdf",
                   valueChanged: (value) {
                     widget.parameters.pdfUrl = value;
                   },

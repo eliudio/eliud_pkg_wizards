@@ -17,7 +17,8 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
       'packages/eliud_pkg_wizards/assets/blocked.png';
   static String blockedComponentId = "blocked";
 
-  static bool hasAccessToLocalFileSystem = Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
+  static bool hasAccessToLocalFileSystem =
+      Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
 
   BlockedPageWizard()
       : super('blocked', 'Blocked', 'Generate a default Blocked Page');
@@ -60,24 +61,22 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
         tasks.add(() async {
           print("Blocked Page");
           await BlockedPageBuilder(
-                  uniqueId,
-                  blockedComponentId,
-                  hasAccessToLocalFileSystem ? blockedAssetPath : null,
-                  blockedPageId,
-                  app,
-                  memberId,
-                  homeMenuProvider(),
-                  appBarProvider(),
-                  leftDrawerProvider(),
-                  rightDrawerProvider(),
-                  )
-              .create();
+            uniqueId,
+            blockedComponentId,
+            hasAccessToLocalFileSystem ? blockedAssetPath : null,
+            blockedPageId,
+            app,
+            memberId,
+            homeMenuProvider(),
+            appBarProvider(),
+            leftDrawerProvider(),
+            rightDrawerProvider(),
+          ).create();
         });
         return tasks;
       }
     } else {
-      throw Exception(
-          'Unexpected class for parameters: ' + parameters.toString());
+      throw Exception('Unexpected class for parameters: $parameters');
     }
     return null;
   }
@@ -107,5 +106,7 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
       null;
 
   @override
-  PublicMediumModel? getPublicMediumModel(String uniqueId, NewAppWizardParameters parameters, String pageType) => null;
+  PublicMediumModel? getPublicMediumModel(String uniqueId,
+          NewAppWizardParameters parameters, String mediumType) =>
+      null;
 }

@@ -1,5 +1,5 @@
 import 'package:eliud_core/core/wizards/builders/page_builder.dart';
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/abstract_repository_singleton.dart'
     as corerepo;
 import 'package:eliud_core/model/model_export.dart';
@@ -16,19 +16,26 @@ class BlockedPageBuilder extends PageBuilder {
   final String componentId;
 
   BlockedPageBuilder(
-      String uniqueId,
-      this.componentId,
-      this.blockedAssetLocation,
-      String pageId,
-      AppModel app,
-      String memberId,
-      HomeMenuModel theHomeMenu,
-      AppBarModel theAppBar,
-      DrawerModel leftDrawer,
-      DrawerModel rightDrawer,
-      )
-      : super(uniqueId, pageId, app, memberId, theHomeMenu, theAppBar, leftDrawer,
-            rightDrawer, );
+    String uniqueId,
+    this.componentId,
+    this.blockedAssetLocation,
+    String pageId,
+    AppModel app,
+    String memberId,
+    HomeMenuModel theHomeMenu,
+    AppBarModel theAppBar,
+    DrawerModel leftDrawer,
+    DrawerModel rightDrawer,
+  ) : super(
+          uniqueId,
+          pageId,
+          app,
+          memberId,
+          theHomeMenu,
+          theAppBar,
+          leftDrawer,
+          rightDrawer,
+        );
 
   Future<PageModel> _setupPage() async {
     return await corerepo.AbstractRepositorySingleton.singleton
@@ -41,7 +48,8 @@ class BlockedPageBuilder extends PageBuilder {
     components.add(BodyComponentModel(
         documentID: "1",
         componentName: AbstractBookletComponent.componentName,
-        componentId: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier)));
+        componentId: constructDocumentId(
+            uniqueId: uniqueId, documentId: blockedIdentifier)));
 
     return PageModel(
         documentID: constructDocumentId(uniqueId: uniqueId, documentId: pageId),
@@ -52,9 +60,10 @@ class BlockedPageBuilder extends PageBuilder {
         endDrawer: rightDrawer,
         appBar: theAppBar,
         homeMenu: theHomeMenu,
-        layout: PageLayout.ListView,
+        layout: PageLayout.listView,
         conditions: StorageConditionsModel(
-          privilegeLevelRequired: PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple,
+          privilegeLevelRequired:
+              PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple,
         ),
         bodyComponents: components);
   }
@@ -63,7 +72,7 @@ class BlockedPageBuilder extends PageBuilder {
 
   Future<PlatformMediumModel> uploadBlockedImage() async {
     return await PlatformMediumHelper(app, memberId,
-            PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
+            PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple)
         .createThumbnailUploadPhotoAsset(
       newRandomKey(),
       blockedAssetLocation!,
@@ -78,20 +87,21 @@ class BlockedPageBuilder extends PageBuilder {
           title: "Blocked!",
           description: "Unfortunately you are blocked.",
           image: blockedImage,
-          imagePositionRelative: RelativeImagePosition.Aside,
-          imageAlignment: SectionImageAlignment.Right,
+          imagePositionRelative: RelativeImagePosition.aside,
+          imageAlignment: SectionImageAlignment.right,
           imageWidth: .33,
           links: []));
     }
 
     return BookletModel(
-      documentID: constructDocumentId(uniqueId: uniqueId, documentId: blockedIdentifier),
+      documentID: constructDocumentId(
+          uniqueId: uniqueId, documentId: blockedIdentifier),
       description: "Blocked!",
       sections: entries,
       appId: app.documentID,
       conditions: StorageConditionsModel(
           privilegeLevelRequired:
-              PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple),
+              PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple),
     );
   }
 
@@ -107,18 +117,19 @@ class BlockedPageBuilder extends PageBuilder {
       await _setupBlocked(blockedImage);
       return await _setupPage();
     } else {
-      return PageWithTextBuilder(uniqueId,
-          'Blocked',
-          'Blocked',
-          'You are blocked',
-          pageId,
-          app,
-          memberId,
-          theHomeMenu,
-          theAppBar,
-          leftDrawer,
-          rightDrawer,  )
-          .create();
+      return PageWithTextBuilder(
+        uniqueId,
+        'Blocked',
+        'Blocked',
+        'You are blocked',
+        pageId,
+        app,
+        memberId,
+        theHomeMenu,
+        theAppBar,
+        leftDrawer,
+        rightDrawer,
+      ).create();
     }
   }
 }

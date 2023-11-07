@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/model/app_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/storage_conditions_model.dart';
@@ -14,25 +14,36 @@ class PdfFromUrlPolicyMediumBuilder {
   final AppModel app;
   final String memberId;
 
-  PdfFromUrlPolicyMediumBuilder(this.pdfUrl, this.baseName, this.uniqueId, this.app, this.memberId);
+  PdfFromUrlPolicyMediumBuilder(
+      this.pdfUrl, this.baseName, this.uniqueId, this.app, this.memberId);
 
   Future<PlatformMediumModel> create() async {
     var policyID = 'policy_id';
     var policy = await _uploadPublicPdf(
-        app, memberId, policyID, );
+      app,
+      memberId,
+      policyID,
+    );
     return policy;
   }
 
   Future<PlatformMediumModel> _uploadPublicPdf(
-      AppModel app,
-      String memberId,
-      String documentID,
-      /*FeedbackProgress? feedbackProgress*/) async {
+    AppModel app,
+    String memberId,
+    String documentID,
+    /*FeedbackProgress? feedbackProgress*/
+  ) async {
     String memberMediumDocumentID = newRandomKey();
 
-    return await PlatformMediumHelper(app, memberId, PrivilegeLevelRequiredSimple.NoPrivilegeRequiredSimple)
+    return await PlatformMediumHelper(app, memberId,
+            PrivilegeLevelRequiredSimple.noPrivilegeRequiredSimple)
         .createThumbnailUploadPdfFromUrl(
-      constructDocumentId(uniqueId: uniqueId, documentId: memberMediumDocumentID), pdfUrl, baseName, documentID,
-      feedbackProgress: (feedback) {}, );
+      constructDocumentId(
+          uniqueId: uniqueId, documentId: memberMediumDocumentID),
+      pdfUrl,
+      baseName,
+      documentID,
+      feedbackProgress: (feedback) {},
+    );
   }
 }

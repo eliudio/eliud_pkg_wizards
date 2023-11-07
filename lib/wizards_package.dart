@@ -19,14 +19,21 @@ import 'wizards/about_page_wizard.dart';
 import 'wizards/blocked_page_wizard.dart';
 
 import 'package:eliud_pkg_wizards/wizards_package_stub.dart'
-if (dart.library.io) 'wizards_mobile_package.dart'
-if (dart.library.html) 'wizards_web_package.dart';
+    if (dart.library.io) 'wizards_mobile_package.dart'
+    if (dart.library.html) 'wizards_web_package.dart';
 
 abstract class WizardsPackage extends Package {
   WizardsPackage() : super('eliud_pkg_wizards');
 
   @override
-  Future<List<PackageConditionDetails>>? getAndSubscribe(AccessBloc accessBloc, AppModel app, MemberModel? member, bool isOwner, bool? isBlocked, PrivilegeLevel? privilegeLevel) => null;
+  Future<List<PackageConditionDetails>>? getAndSubscribe(
+          AccessBloc accessBloc,
+          AppModel app,
+          MemberModel? member,
+          bool isOwner,
+          bool? isBlocked,
+          PrivilegeLevel? privilegeLevel) =>
+      null;
 
   @override
   List<String>? retrieveAllPackageConditions() => null;
@@ -39,7 +46,7 @@ abstract class WizardsPackage extends Package {
     NewAppWizardRegistry.registry().register(NewPolicyWizard());
     // NewAppWizardRegistry.registry().register(NewPolicyFromPdfWizard());
     NewAppWizardRegistry.registry().register(MembershipWorkflowWizard());
- }
+  }
 
   @override
   List<MemberCollectionInfo>? getMemberCollectionInfo() => null;
@@ -49,6 +56,7 @@ abstract class WizardsPackage extends Package {
   /*
    * Register depending packages
    */
+  @override
   void registerDependencies(Eliud eliud) {
     eliud.registerPackage(CorePackage.instance());
     eliud.registerPackage(TextPackage.instance());

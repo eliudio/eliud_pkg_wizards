@@ -1,4 +1,4 @@
-import 'package:eliud_core/core/wizards/tools/documentIdentifier.dart';
+import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
 import 'package:eliud_core/tools/random.dart';
 import 'package:eliud_pkg_membership/tasks/approve_membership_task_model.dart';
 import 'package:eliud_pkg_membership/tasks/request_membership_task_model.dart';
@@ -25,7 +25,7 @@ class MembershipWorkflowBuilder {
   });
 
   Future<void> create() async {
-    if (parameters.joinMedhod == JoinMethod.JoinWithManualPayment) {
+    if (parameters.joinMedhod == JoinMethod.joinWithManualPayment) {
       await workflowRepository(appId: appId)!.add(_workflowForMembership(
           "Paid Membership (manually paid)",
           parameters.manualAmount,
@@ -36,13 +36,13 @@ class MembershipWorkflowBuilder {
               bankIdentifierCode: parameters.bankIdentifierCode,
               payeeIBAN: parameters.payeeIBAN,
               bankName: parameters.bankName)));
-    } else if (parameters.joinMedhod == JoinMethod.JoinByCard) {
+    } else if (parameters.joinMedhod == JoinMethod.joinByCard) {
       await workflowRepository(appId: appId)!.add(_workflowForMembership(
           "Paid Membership (Credit card payment)",
           parameters.manualAmount,
           parameters.manualCcy,
           CreditCardPayTypeModel(requiresConfirmation: true)));
-    } else if (parameters.joinMedhod == JoinMethod.JoinForFree) {
+    } else if (parameters.joinMedhod == JoinMethod.joinForFree) {
       await workflowRepository(appId: appId)!.add(_workflowForFreeMembership());
     }
   }
@@ -60,7 +60,7 @@ class MembershipWorkflowBuilder {
           WorkflowTaskModel(
             seqNumber: 1,
             documentID: "request_membership",
-            responsible: WorkflowTaskResponsible.CurrentMember,
+            responsible: WorkflowTaskResponsible.currentMember,
             task: RequestMembershipTaskModel(
               identifier: newRandomKey(),
               executeInstantly: false,
@@ -70,11 +70,11 @@ class MembershipWorkflowBuilder {
           WorkflowTaskModel(
             seqNumber: 2,
             documentID: "pay_membership",
-            responsible: WorkflowTaskResponsible.CurrentMember,
+            responsible: WorkflowTaskResponsible.currentMember,
             confirmMessage: WorkflowNotificationModel(
                 message:
                     "Your payment and membership request is now with the owner for review. You will be notified soon",
-                addressee: WorkflowNotificationAddressee.CurrentMember),
+                addressee: WorkflowNotificationAddressee.currentMember),
             rejectMessage: null,
             task: FixedAmountPayModel(
                 identifier: newRandomKey(),
@@ -87,15 +87,15 @@ class MembershipWorkflowBuilder {
           WorkflowTaskModel(
             seqNumber: 3,
             documentID: "confirm_membership",
-            responsible: WorkflowTaskResponsible.Owner,
+            responsible: WorkflowTaskResponsible.owner,
             confirmMessage: WorkflowNotificationModel(
                 message:
                     "You payment has been verified and you're now a member. Welcome! Feedback: ",
-                addressee: WorkflowNotificationAddressee.First),
+                addressee: WorkflowNotificationAddressee.first),
             rejectMessage: WorkflowNotificationModel(
                 message:
                     "You payment has been verified and unfortunately something went wrong. Feedback: ",
-                addressee: WorkflowNotificationAddressee.First),
+                addressee: WorkflowNotificationAddressee.first),
             task: ApproveMembershipTaskModel(
               identifier: newRandomKey(),
               executeInstantly: false,
@@ -110,7 +110,7 @@ class MembershipWorkflowBuilder {
     return WorkflowModel(
         appId: appId,
         documentID:
-        constructDocumentId(uniqueId: uniqueId, documentId: membershipId));
+            constructDocumentId(uniqueId: uniqueId, documentId: membershipId));
   }
 
   WorkflowModel _workflowForFreeMembership() {
@@ -123,7 +123,7 @@ class MembershipWorkflowBuilder {
           WorkflowTaskModel(
             seqNumber: 1,
             documentID: "request_membership",
-            responsible: WorkflowTaskResponsible.CurrentMember,
+            responsible: WorkflowTaskResponsible.currentMember,
             task: RequestMembershipTaskModel(
               identifier: newRandomKey(),
               executeInstantly: false,
@@ -133,15 +133,15 @@ class MembershipWorkflowBuilder {
           WorkflowTaskModel(
             seqNumber: 2,
             documentID: "confirm_membership",
-            responsible: WorkflowTaskResponsible.Owner,
+            responsible: WorkflowTaskResponsible.owner,
             confirmMessage: WorkflowNotificationModel(
                 message:
                     "You payment has been verified and you're now a member. Welcome! Feedback: ",
-                addressee: WorkflowNotificationAddressee.First),
+                addressee: WorkflowNotificationAddressee.first),
             rejectMessage: WorkflowNotificationModel(
                 message:
                     "You payment has been verified and unfortunately something went wrong. Feedback: ",
-                addressee: WorkflowNotificationAddressee.First),
+                addressee: WorkflowNotificationAddressee.first),
             task: ApproveMembershipTaskModel(
               identifier: newRandomKey(),
               executeInstantly: false,
