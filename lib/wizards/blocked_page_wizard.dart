@@ -1,7 +1,7 @@
 import 'package:eliud_core/core/registry.dart';
 import 'package:eliud_core/core/wizards/registry/new_app_wizard_info_with_action_specification.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
-import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core_model/model/app_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
@@ -18,7 +18,7 @@ class BlockedPageWizard extends NewAppWizardInfoWithActionSpecification {
   static String blockedComponentId = "blocked";
 
   static bool hasAccessToLocalFileSystem =
-      Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
+      Apis.apis().getMediumApi().hasAccessToLocalFilesystem();
 
   BlockedPageWizard()
       : super('blocked', 'Blocked', 'Generate a default Blocked Page');

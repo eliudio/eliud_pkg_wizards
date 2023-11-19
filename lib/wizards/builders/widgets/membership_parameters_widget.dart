@@ -1,9 +1,9 @@
 import 'package:eliud_core/core/wizards/widgets/action_specification_widget.dart';
-import 'package:eliud_core/model/app_model.dart';
-import 'package:eliud_core/style/frontend/has_container.dart';
-import 'package:eliud_core/style/frontend/has_dialog_field.dart';
-import 'package:eliud_core/style/frontend/has_list_tile.dart';
-import 'package:eliud_core/style/frontend/has_text.dart';
+import 'package:eliud_core_model/model/app_model.dart';
+import 'package:eliud_core_model/style/frontend/has_container.dart';
+import 'package:eliud_core_model/style/frontend/has_dialog_field.dart';
+import 'package:eliud_core_model/style/frontend/has_list_tile.dart';
+import 'package:eliud_core_model/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/helpers/parse_helper.dart';
 import 'package:flutter/material.dart';
 

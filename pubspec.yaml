@@ -13,9 +13,9 @@ dependencies:
   collection: ^1.17.2
   eliud_core: ^1.1.5+7
   eliud_pkg_text: ^1.1.5+6
-  eliud_pkg_fundamentals: ^1.1.5+6
+  eliud_pkg_fundamentals: ^1.0.0
   eliud_pkg_etc: ^1.1.5+8
-  eliud_pkg_shop: ^1.1.5+9
+  eliud_pkg_shop: ^1.1.5+10
   eliud_pkg_membership: ^1.1.5+5
   eliud_pkg_workflow: ^1.1.5+5
   eliud_pkg_pay: ^1.1.5+5

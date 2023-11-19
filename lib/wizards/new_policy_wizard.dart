@@ -1,13 +1,13 @@
 import 'package:eliud_core/core/registry.dart';
 import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/core/wizards/widgets/action_specification_widget.dart';
-import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core_model/model/app_model.dart';
 import 'package:eliud_core/model/app_policy_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/model/menu_item_model.dart';
 import 'package:eliud_core/model/platform_medium_model.dart';
 import 'package:eliud_core/model/public_medium_model.dart';
-import 'package:eliud_core/style/frontend/has_text.dart';
+import 'package:eliud_core_model/style/frontend/has_text.dart';
 import 'package:eliud_core/tools/action/action_model.dart';
 import 'package:eliud_core/wizards/helpers/menu_helpers.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
   Widget wizardParametersWidget(
       AppModel app, BuildContext context, NewAppWizardParameters parameters) {
     if (parameters is NewPolicyParameters) {
-      //bool hasAccessToLocalFileSystem = Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
+      //bool hasAccessToLocalFileSystem = Apis.apis().getMediumApi().hasAccessToLocalFilesystem();
       return ActionSpecificationWidget(
           app: app,
           actionSpecification: parameters.actionSpecifications,
@@ -150,7 +150,7 @@ class NewPolicyWizard extends NewAppWizardInfo {
 
 class NewPolicyParameters extends ActionSpecificationParametersBase {
   static bool hasAccessToLocalFileSystem =
-      Registry.registry()!.getMediumApi().hasAccessToLocalFilesystem();
+      Apis.apis().getMediumApi().hasAccessToLocalFilesystem();
 
   AppPolicyModel? appPolicyModel;
   PlatformMediumModel? appPolicyMedium;

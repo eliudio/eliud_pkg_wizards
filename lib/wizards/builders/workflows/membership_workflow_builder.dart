@@ -1,5 +1,5 @@
 import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
-import 'package:eliud_core/tools/random.dart';
+import 'package:eliud_core_model/tools/etc/random.dart';
 import 'package:eliud_pkg_membership/tasks/approve_membership_task_model.dart';
 import 'package:eliud_pkg_membership/tasks/request_membership_task_model.dart';
 import 'package:eliud_pkg_pay/tasks/pay_type_types/creditcard_pay_type_model.dart';

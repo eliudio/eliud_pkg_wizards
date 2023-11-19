@@ -3,7 +3,7 @@ import 'package:eliud_core/core/wizards/registry/registry.dart';
 import 'package:eliud_core/core_package.dart';
 import 'package:eliud_core/eliud.dart';
 import 'package:eliud_core/model/access_model.dart';
-import 'package:eliud_core/model/app_model.dart';
+import 'package:eliud_core_model/model/app_model.dart';
 import 'package:eliud_core/model/member_model.dart';
 import 'package:eliud_core/package/package.dart';
 import 'package:eliud_pkg_etc/etc_package.dart';
