@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core/model/public_medium_model.dart';
-import 'package:eliud_core_model/tools/etc/random.dart';
-import 'package:eliud_core/tools/storage/public_medium_helper.dart';
+import 'package:eliud_core_main/storage/public_medium_helper.dart';
+import 'package:eliud_core_main/wizards/tools/document_identifier.dart';
+import 'package:eliud_core_main/model/app_model.dart';
+import 'package:eliud_core_main/model/public_medium_model.dart';
+import 'package:eliud_core_helpers/etc/random.dart';
 
 class PdfPolicyMediumBuilder {
   final String uniqueId;

@@ -1,14 +1,14 @@
-import 'package:eliud_core/core/wizards/builders/page_builder.dart';
-import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
-import 'package:eliud_core/model/abstract_repository_singleton.dart'
-    as corerepo;
-import 'package:eliud_core/model/app_policy_model.dart';
-import 'package:eliud_core/model/body_component_model.dart';
-import 'package:eliud_core/model/page_model.dart';
-import 'package:eliud_core_model/model/storage_conditions_model.dart';
-import 'package:eliud_pkg_etc/model/abstract_repository_singleton.dart';
-import 'package:eliud_pkg_etc/model/policy_presentation_component.dart';
-import 'package:eliud_pkg_etc/model/policy_presentation_model.dart';
+import 'package:eliud_core_main/wizards/builders/page_builder.dart';
+import 'package:eliud_core_main/wizards/tools/document_identifier.dart';
+import 'package:eliud_core_main/model/abstract_repository_singleton.dart'
+    as mainrepo;
+import 'package:eliud_core_main/model/body_component_model.dart';
+import 'package:eliud_core_main/model/page_model.dart';
+import 'package:eliud_core_main/model/storage_conditions_model.dart';
+import 'package:eliud_core_model/model/app_policy_model.dart';
+import 'package:eliud_pkg_etc_model/model/abstract_repository_singleton.dart';
+import 'package:eliud_pkg_etc_model/model/policy_presentation_component.dart';
+import 'package:eliud_pkg_etc_model/model/policy_presentation_model.dart';
 
 class PolicyPageBuilder extends PageBuilder {
   final AppPolicyModel appPolicy;
@@ -50,7 +50,7 @@ class PolicyPageBuilder extends PageBuilder {
   }
 
   Future<PageModel> _setupPage() async {
-    return await corerepo.AbstractRepositorySingleton.singleton
+    return await mainrepo.AbstractRepositorySingleton.singleton
         .pageRepository(app.documentID)!
         .add(_page());
   }

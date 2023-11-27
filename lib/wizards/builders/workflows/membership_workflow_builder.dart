@@ -1,15 +1,15 @@
-import 'package:eliud_core/core/wizards/tools/document_identifier.dart';
-import 'package:eliud_core_model/tools/etc/random.dart';
+import 'package:eliud_core_main/wizards/tools/document_identifier.dart';
+import 'package:eliud_core_helpers/etc/random.dart';
 import 'package:eliud_pkg_membership/tasks/approve_membership_task_model.dart';
 import 'package:eliud_pkg_membership/tasks/request_membership_task_model.dart';
 import 'package:eliud_pkg_pay/tasks/pay_type_types/creditcard_pay_type_model.dart';
 import 'package:eliud_pkg_pay/tasks/fixed_amount_pay_model.dart';
 import 'package:eliud_pkg_pay/tasks/pay_type_types/manual_pay_type_model.dart';
 import 'package:eliud_pkg_pay/tasks/pay_type_types/pay_type_model.dart';
-import 'package:eliud_pkg_workflow/model/abstract_repository_singleton.dart';
-import 'package:eliud_pkg_workflow/model/workflow_model.dart';
-import 'package:eliud_pkg_workflow/model/workflow_notification_model.dart';
-import 'package:eliud_pkg_workflow/model/workflow_task_model.dart';
+import 'package:eliud_pkg_workflow_model/model/abstract_repository_singleton.dart';
+import 'package:eliud_pkg_workflow_model/model/workflow_model.dart';
+import 'package:eliud_pkg_workflow_model/model/workflow_notification_model.dart';
+import 'package:eliud_pkg_workflow_model/model/workflow_task_model.dart';
 
 import '../../membership_workflow_wizard.dart';
 

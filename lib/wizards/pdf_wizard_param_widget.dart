@@ -1,8 +1,8 @@
-import 'package:eliud_core/core/wizards/widgets/action_specification_widget.dart';
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core_model/style/frontend/has_container.dart';
-import 'package:eliud_core_model/style/frontend/has_dialog_field.dart';
-import 'package:eliud_core_model/style/frontend/has_list_tile.dart';
+import 'package:eliud_core_main/apis/wizard_api/action_specification_widget.dart';
+import 'package:eliud_core_main/model/app_model.dart';
+import 'package:eliud_core_main/apis/style/frontend/has_container.dart';
+import 'package:eliud_core_main/apis/style/frontend/has_dialog_field.dart';
+import 'package:eliud_core_main/apis/style/frontend/has_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'new_policy_from_pdf_wizard.dart';
