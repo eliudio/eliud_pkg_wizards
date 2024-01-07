@@ -1,5 +1,6 @@
 import 'package:eliud_core/access/access_bloc.dart';
 import 'package:eliud_core_main/apis/wizard_api/new_app_wizard_info.dart';
+import 'package:eliud_core_main/apis/apis.dart';
 import 'package:eliud_core/core_package.dart';
 import 'package:eliud_core/eliud.dart';
 import 'package:eliud_core_main/tools/etc/member_collection_info.dart';
@@ -42,11 +43,11 @@ abstract class WizardsPackage extends Package {
   @override
   void init() {
     // wizards
-    NewAppWizardRegistry.registry().register(BlockedPageWizard());
-    NewAppWizardRegistry.registry().register(AboutPageWizard());
-    NewAppWizardRegistry.registry().register(NewPolicyWizard());
-    // NewAppWizardRegistry.registry().register(NewPolicyFromPdfWizard());
-    NewAppWizardRegistry.registry().register(MembershipWorkflowWizard());
+    Apis.apis().getWizardApi().register(BlockedPageWizard());
+    Apis.apis().getWizardApi().register(AboutPageWizard());
+    Apis.apis().getWizardApi().register(NewPolicyWizard());
+    // Apis.apis().getWizardApi().register(NewPolicyFromPdfWizard());
+    Apis.apis().getWizardApi().register(MembershipWorkflowWizard());
   }
 
   @override
