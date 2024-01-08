@@ -3,28 +3,25 @@ name: eliud_pkg_wizards
 description: eliud_pkg_wizards is a package to provide wizards. More info at https://eliud.io
 homepage: https://eliud.io
 repository: https://github.com/eliudio/eliud_pkg_wizards
-version: 1.1.5+5
+version: 1.1.7
 environment:
   sdk: '>=3.2.0 <4.0.0'
   flutter: '>=3.0.0'
 dependencies:
-  eliud_core_main:                                                                                   # ANDROID IOS             WEB
-    path: ../eliud_core_main
-  eliud_core_model:                                                                                  # ANDROID IOS             WEB
-    path: ../eliud_core_model
-  eliud_pkg_membership:                                                                              # ANDROID IOS             WEB
-    path: ../eliud_pkg_membership
-  eliud_pkg_workflow:                                                                                # ANDROID IOS             WEB
-    path: ../eliud_pkg_workflow
-  eliud_pkg_fundamentals_model:                                                                      # ANDROID IOS             WEB
-    path: ../eliud_pkg_fundamentals_model
-  eliud_pkg_text:                                                                                    # ANDROID IOS             WEB
-    path: ../eliud_pkg_text
-  eliud_pkg_pay:                                                                                     # ANDROID IOS             WEB
-    path: ../eliud_pkg_pay
-  eliud_pkg_shop:                                                                                    # ANDROID IOS             WEB
-    path: ../eliud_pkg_shop
-
+  eliud_core: ^1.1.6
+  eliud_core_helpers: ^1.0.0
+  eliud_core_main: ^1.0.2
+  eliud_core_model: ^1.0.0
+  eliud_pkg_etc: ^1.1.7
+  eliud_pkg_etc_model: ^1.0.0
+  eliud_pkg_fundamentals: ^1.1.7
+  eliud_pkg_fundamentals_model: ^1.1.7
+  eliud_pkg_membership: ^1.1.7
+  eliud_pkg_pay: ^1.2.0
+  eliud_pkg_shop: ^1.1.6
+  eliud_pkg_text: ^1.1.7
+  eliud_pkg_workflow: ^1.1.6
+  eliud_pkg_workflow_model: ^1.0.0
   flutter:
     sdk: flutter
 flutter:
